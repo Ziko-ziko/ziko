@@ -46,6 +46,13 @@ scripts/edit.sh gif      in.mp4 out.gif 15 640              # GIF
 scripts/edit.sh info     in.mp4                             # ma3lomat
 ```
 
+## Remotion Agent Skills (l Claude / AI agents)
+
+F `.agents/skills/` (w symlinks f `.claude/skills/`) kaynin 12 skills rasmiyin dyal Remotion:
+best-practices, create, captions, render, studio, multimedia, maps, interactivity, docs, upgrade...
+Ila khdemti b Claude Code mn west `video-studio/`, kaybanou wa7dhom.
+Update: `npx skills add remotion-dev/skills --yes`
+
 ## Notes
 
 - Ila Remotion ma l9ach browser (server bla internet), `remotion.config.ts` kaykhdem b Playwright headless shell automatiquement.
