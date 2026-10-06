@@ -1,0 +1,25 @@
+# Video editing (cut, merge, overlays, effects)
+moviepy>=2.1
+imageio[ffmpeg]>=2.34
+ffmpeg-python>=0.2
+# Image / frame processing
+opencv-python-headless>=4.10
+pillow>=10.4
+numpy>=1.26
+scikit-image>=0.24
+# Audio
+pydub>=0.25
+librosa>=0.10
+soundfile>=0.12
+# Math animation / motion graphics
+manim>=0.18
+# Scene / cut detection
+scenedetect[opencv]>=0.6
+# Download source clips (only content you have rights to)
+yt-dlp>=2024.8
+# Lottie animations (JSON -> GIF/MP4)
+lottie>=0.7
+cairosvg>=2.7
+# Text-to-speech voiceover
+edge-tts>=6.1
+gTTS>=2.5

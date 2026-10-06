@@ -1,0 +1,6 @@
+node_modules/
+.venv/
+out/
+hyperframes/renders/
+__pycache__/
+*.blend1
