@@ -1,7 +1,8 @@
 import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
 import { M } from "./data";
 import { FaceArt } from "./FaceArt";
-import { INK, PINK, SANS } from "./theme";
+import { useStyle } from "./style";
+import { INK, SANS } from "./theme";
 
 const COLS = 3;
 const CARD_W = 320;
@@ -13,6 +14,7 @@ const LEFT = (1080 - COLS * CARD_W - (COLS - 1) * GAP) / 2;
 export const BrollFeed: React.FC<{ from: number; to: number }> = ({ from, to }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
+  const { accent: PINK, feed } = useStyle();
   const t = frame / fps;
   if (t < from - 0.01 || t > to + 0.01) return null;
 
@@ -25,9 +27,9 @@ export const BrollFeed: React.FC<{ from: number; to: number }> = ({ from, to }) 
   const scroll = (t - from) * 150;
 
   const labels = [
-    { at: M.levres, text: "MÊMES LÈVRES", rot: -4 },
-    { at: M.pommettes, text: "MÊMES POMMETTES", rot: 3 },
-    { at: M.profils, text: "MÊMES PROFILS", rot: -2 },
+    { at: M.levres, text: feed.labels[0] ?? "", rot: -4 },
+    { at: M.pommettes, text: feed.labels[1] ?? "", rot: 3 },
+    { at: M.profils, text: feed.labels[2] ?? "", rot: -2 },
   ];
 
   return (
@@ -65,7 +67,7 @@ export const BrollFeed: React.FC<{ from: number; to: number }> = ({ from, to }) 
                 transform: `scale(${pop})`,
               }}
             >
-              <FaceArt size={190} lips={lips} cheeks={cheeks} outline={outline} />
+              <FaceArt size={190} lips={lips} cheeks={cheeks} outline={outline} accent={PINK} />
               <div style={{ marginTop: 18, fontFamily: SANS, fontWeight: 800, fontSize: 28, color: "rgba(255,255,255,0.8)" }}>
                 <span style={{ color: PINK }}>♥</span> 24,5k
               </div>
@@ -97,13 +99,13 @@ export const BrollFeed: React.FC<{ from: number; to: number }> = ({ from, to }) 
       {/* labels */}
       {labels.map((l, i) => {
         const p = spring({ frame: frame - Math.round(l.at * fps), fps, config: { damping: 11, stiffness: 200, mass: 0.6 } });
-        if (t < l.at) return null;
+        if (t < l.at || !l.text) return null;
         return (
           <div
             key={i}
             style={{
               position: "absolute",
-              top: 640 + i * 120,
+              top: feed.labelY + i * feed.labelSize * 2.05,
               left: 0,
               right: 0,
               textAlign: "center",
@@ -117,8 +119,8 @@ export const BrollFeed: React.FC<{ from: number; to: number }> = ({ from, to }) 
                 color: i === labels.length - 1 ? "#fff" : INK,
                 fontFamily: SANS,
                 fontWeight: 900,
-                fontSize: 58,
-                padding: "14px 34px",
+                fontSize: feed.labelSize,
+                padding: `${feed.labelSize * 0.24}px ${feed.labelSize * 0.6}px`,
                 borderRadius: 18,
                 boxShadow: "0 18px 50px rgba(0,0,0,0.5)",
               }}

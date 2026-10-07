@@ -1,10 +1,12 @@
 import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
 import { FaceArt } from "./FaceArt";
-import { GOLD, INK, PINK, SANS, SERIF } from "./theme";
+import { accentText, useStyle } from "./style";
+import { GOLD, INK, SANS } from "./theme";
 
 export const EndCard: React.FC<{ from: number }> = ({ from }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
+  const { endCard: e, accent } = useStyle();
   const t = frame / fps;
   if (t < from) return null;
   const local = t - from;
@@ -17,51 +19,51 @@ export const EndCard: React.FC<{ from: number }> = ({ from }) => {
   return (
     <AbsoluteFill
       style={{
-        background: `radial-gradient(circle at 50% 38%, #3a1830 0%, ${INK} 62%)`,
+        background: `radial-gradient(circle at 50% 38%, ${accent}38 0%, ${INK} 62%)`,
         opacity: bg,
         alignItems: "center",
+        fontFamily: SANS,
       }}
     >
       <div
         style={{
-          marginTop: 360,
-          filter: `drop-shadow(0 0 ${30 * glow}px rgba(255,63,164,0.8))`,
+          marginTop: e.y,
+          filter: `drop-shadow(0 0 ${30 * glow}px ${accent}cc)`,
           transform: `scale(${interpolate(draw, [0, 1], [0.92, 1])})`,
         }}
       >
-        <FaceArt size={360} stroke={GOLD} draw={draw} strokeWidth={3.5} lips={glow} cheeks={glow * 0.6} accent={PINK} />
+        <FaceArt size={360} stroke={GOLD} draw={draw} strokeWidth={3.5} lips={glow} cheeks={glow * 0.6} accent={accent} />
       </div>
       <div
         style={{
           marginTop: 70,
-          fontFamily: SERIF,
-          fontWeight: 600,
-          fontStyle: "italic",
-          fontSize: 92,
+          fontWeight: Number(e.titleWeight),
+          fontStyle: e.titleItalic ? "italic" : "normal",
+          fontSize: e.titleSize,
           color: "#fff",
           textAlign: "center",
-          lineHeight: 1.1,
+          lineHeight: 1.12,
+          letterSpacing: "-0.01em",
           opacity: title,
           transform: `translateY(${(1 - title) * 40}px)`,
         }}
       >
-        Chaque visage
+        {accentText(e.line1, accent)}
         <br />
-        est <span style={{ color: PINK }}>unique.</span>
+        {accentText(e.line2, accent)}
       </div>
       <div
         style={{
           marginTop: 46,
-          fontFamily: SANS,
           fontWeight: 600,
-          fontSize: 30,
+          fontSize: e.subtitleSize,
           letterSpacing: "0.38em",
           color: GOLD,
           opacity: sub,
           transform: `translateY(${(1 - sub) * 30}px)`,
         }}
       >
-        SUBLIMER, PAS TRANSFORMER
+        {e.subtitle}
       </div>
     </AbsoluteFill>
   );

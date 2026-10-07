@@ -8,7 +8,7 @@ import { EndCard } from "./EndCard";
 import { FaceAnalysis, Harmony } from "./FaceHUD";
 import { Footage } from "./Footage";
 import { HookTitle } from "./HookTitle";
-import { PINK } from "./theme";
+import { type ReelStyle, StyleContext } from "./style";
 
 const SFX: [number, string, number][] = [
   [0, "whoosh", 0.45],
@@ -28,18 +28,19 @@ const SFX: [number, string, number][] = [
   [M.speechEnd - 0.1, "chime", 1],
 ];
 
-const ProgressBar: React.FC = () => {
+const ProgressBar: React.FC<{ color: string }> = ({ color }) => {
   const frame = useCurrentFrame();
   const { durationInFrames } = useVideoConfig();
   return (
-    <div style={{ position: "absolute", top: 0, left: 0, height: 8, width: `${(frame / durationInFrames) * 100}%`, background: PINK }} />
+    <div style={{ position: "absolute", top: 0, left: 0, height: 8, width: `${(frame / durationInFrames) * 100}%`, background: color }} />
   );
 };
 
-export const ReelEdit: React.FC = () => {
+export const ReelEdit: React.FC<ReelStyle> = (style) => {
   const { fps, durationInFrames } = useVideoConfig();
   const speechEndF = Math.round(M.speechEnd * fps);
   return (
+    <StyleContext.Provider value={style}>
     <AbsoluteFill style={{ background: "#000" }}>
       <Footage />
       <FaceAnalysis from={M.globalite - 0.6} to={M.unique + 1.4} />
@@ -49,12 +50,12 @@ export const ReelEdit: React.FC = () => {
       <HookTitle until={M.brollFeedIn} />
       <Captions />
       <EndCard from={M.speechEnd - 0.15} />
-      <ProgressBar />
+      {style.progressBar && <ProgressBar color={style.accent} />}
 
       <Audio
         src={staticFile("reel1/music.wav")}
         volume={(f) =>
-          interpolate(f, [0, 10, speechEndF - 10, speechEndF + 5, durationInFrames - 20, durationInFrames], [0, 0.55, 0.55, 1, 1, 0], {
+          interpolate(f, [0, 10, speechEndF - 10, speechEndF + 5, durationInFrames - 20, durationInFrames], [0, style.musicVolume, style.musicVolume, Math.min(1, style.musicVolume * 1.8), Math.min(1, style.musicVolume * 1.8), 0], {
             extrapolateLeft: "clamp",
             extrapolateRight: "clamp",
           })
@@ -62,9 +63,10 @@ export const ReelEdit: React.FC = () => {
       />
       {SFX.map(([at, name, vol], i) => (
         <Sequence key={i} from={Math.max(0, Math.round(at * fps))} layout="none">
-          <Audio src={staticFile(`reel1/${name}.wav`)} volume={vol} />
+          <Audio src={staticFile(`reel1/${name}.wav`)} volume={Math.min(1, vol * style.sfxVolume)} />
         </Sequence>
       ))}
     </AbsoluteFill>
+    </StyleContext.Provider>
   );
 };

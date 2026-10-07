@@ -1,11 +1,13 @@
 import { AbsoluteFill, interpolate, random, spring, useCurrentFrame, useVideoConfig } from "remotion";
 import { FaceArt } from "./FaceArt";
-import { INK, PINK, SANS } from "./theme";
+import { useStyle } from "./style";
+import { INK, SANS } from "./theme";
 
 /** "Visages standardisés": a factory grid of identical faces + stamp. */
 export const BrollStandard: React.FC<{ from: number; stampAt: number; to: number }> = ({ from, stampAt, to }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
+  const { accent: PINK, stamp: st } = useStyle();
   const t = frame / fps;
   if (t < from || t > to + 0.4) return null;
 
@@ -49,19 +51,19 @@ export const BrollStandard: React.FC<{ from: number; stampAt: number; to: number
             style={{
               fontFamily: SANS,
               fontWeight: 900,
-              fontSize: 112,
+              fontSize: st.fontSize,
               color: PINK,
               border: `10px solid ${PINK}`,
               borderRadius: 22,
               padding: "6px 34px 12px",
               background: "rgba(11,9,13,0.82)",
-              transform: `rotate(-9deg) scale(${interpolate(stamp, [0, 1], [2.2, 1])})`,
+              transform: `rotate(${st.rotation}deg) scale(${interpolate(stamp, [0, 1], [2.2, 1])})`,
               opacity: interpolate(stamp, [0, 0.3], [0, 1], { extrapolateRight: "clamp" }),
               letterSpacing: "0.02em",
               boxShadow: "0 0 80px rgba(255,63,164,0.35)",
             }}
           >
-            STANDARDISÉS
+            {st.text}
           </div>
         </AbsoluteFill>
       )}

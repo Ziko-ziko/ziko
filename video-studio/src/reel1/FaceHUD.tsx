@@ -1,6 +1,7 @@
 import { interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
 import { faceAt, M, project } from "./data";
-import { PINK, SANS } from "./theme";
+import { useStyle } from "./style";
+import { SANS } from "./theme";
 
 const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
 
@@ -12,7 +13,9 @@ function useFaceBox(t: number) {
   return { x: tl.x, y: tl.y, w: br.x - tl.x, h: br.y - tl.y };
 }
 
-const Label: React.FC<{ y: number; text: string; p: number; side: "l" | "r" }> = ({ y, text, p, side }) => (
+const Label: React.FC<{ y: number; text: string; p: number; side: "l" | "r" }> = ({ y, text, p, side }) => {
+  const { accent: PINK, hud } = useStyle();
+  return (
   <div
     style={{
       position: "absolute",
@@ -32,7 +35,7 @@ const Label: React.FC<{ y: number; text: string; p: number; side: "l" | "r" }> =
       style={{
         fontFamily: SANS,
         fontWeight: 800,
-        fontSize: 31,
+        fontSize: hud.labelSize,
         letterSpacing: "0.2em",
         color: "#fff",
         background: "rgba(10,8,12,0.55)",
@@ -45,7 +48,8 @@ const Label: React.FC<{ y: number; text: string; p: number; side: "l" | "r" }> =
       {text}
     </div>
   </div>
-);
+  );
+};
 
 /** "Analysis" overlay for: globalité / proportions / équilibre / unique. */
 export const FaceAnalysis: React.FC<{ from: number; to: number }> = ({ from, to }) => {
@@ -53,7 +57,8 @@ export const FaceAnalysis: React.FC<{ from: number; to: number }> = ({ from, to 
   const { fps } = useVideoConfig();
   const t = frame / fps;
   const box = useFaceBox(t);
-  if (t < from || t > to) return null;
+  const { accent: PINK, hud } = useStyle();
+  if (!hud.show || t < from || t > to) return null;
 
   const on = (at: number, d = 0.45) => interpolate(t, [at, at + d], [0, 1], clamp);
   const fadeOut = interpolate(t, [M.unique - 0.1, M.unique + 0.3], [1, 0], clamp);
@@ -131,7 +136,7 @@ export const FaceAnalysis: React.FC<{ from: number; to: number }> = ({ from, to 
               boxShadow: "0 0 60px rgba(255,63,164,0.7)",
             }}
           >
-            ✦ UNIQUE
+            {hud.uniqueText}
           </span>
         </div>
       )}
@@ -145,9 +150,10 @@ export const Harmony: React.FC = () => {
   const { fps } = useVideoConfig();
   const t = frame / fps;
   const box = useFaceBox(t);
+  const { accent: PINK, hud } = useStyle();
   const startC = M.correction - 0.5;
   const endH = M.harmoniser + 1.25;
-  if (t < startC || t > endH) return null;
+  if (!hud.show || t < startC || t > endH) return null;
 
   const slider = interpolate(t, [startC, startC + 0.3, M.correction + 0.2, M.correction + 0.6], [0, 1, 1, 1], clamp);
   const knob = interpolate(t, [M.correction, M.correction + 0.5], [0.5, 0.56], clamp);
