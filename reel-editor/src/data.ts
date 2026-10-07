@@ -1,0 +1,69 @@
+import { ReelProps, SOURCE_SEC } from "./schema";
+
+// Transcript from Whisper (small), cleaned by hand. Lines marked GUESS were unclear in the audio — check them.
+export const defaultReel: ReelProps = {
+  src: "reel.mp4",
+  takes: [
+    { from: 0, to: 18.6, label: "المقدمة + الرسالة", on: true },
+    { from: 18.6, to: 24.0, label: "محاولة ناقصة: Quand je veux injecter…", on: false },
+    { from: 24.0, to: 30.6, label: "إعادة: Par peur d'être transformé…", on: false },
+    { from: 30.6, to: 40.6, label: "Quand je veux injecter… (المحاولة 1)", on: false },
+    { from: 40.6, to: 51.6, label: "Quand je veux injecter… (المحاولة 2)", on: true },
+    { from: 51.6, to: SOURCE_SEC, label: "الخاتمة", on: true },
+  ],
+  // source seconds, placed on pauses; joins between takes get a cut automatically
+  cuts: [2.45, 5.1, 7.75, 10.45, 12.7, 16.25, 44.1, 47.75, 51.75, 54.6],
+  zooms: [1.0, 1.2, 1.07, 1.32, 1.0, 1.2, 1.07, 1.32, 1.0, 1.2, 1.07, 1.32],
+  grade: "teal",
+  flash: 0.7,
+  glow: 0.5,
+  transition: 0.32,
+  pushIn: 0.045,
+  punch: 0.06,
+  anchorY: 0.35,
+  hook: { on: true, text: "LE FILLER", sub: "Chaque visage est unique", until: 2.45 },
+  captionsOn: true,
+  captionStyle: "pop",
+  captionY: 0.7,
+  captionSize: 74,
+  captions: [
+    { start: 2.45, end: 4.95, text: "Chaque visage mérite de garder sa propre identité." },
+    { start: 5.15, end: 7.75, text: "Aujourd'hui, sur les réseaux sociaux, on voit partout" }, // GUESS
+    { start: 7.75, end: 10.3, text: "les mêmes lèvres, les mêmes pommettes, les mêmes profils." },
+    { start: 10.5, end: 12.6, text: "Beaucoup de gens refusent de refaire le filler" }, // GUESS
+    { start: 12.75, end: 16.0, text: "par peur d'être transformé ou tout simplement de ne plus se reconnaître." },
+    { start: 16.3, end: 18.55, text: "Justement, c'est ça le message que je veux transmettre." },
+    { start: 18.75, end: 21.6, text: "Quand je veux injecter un visage, je l'analyse dans sa globalité." },
+    { start: 22.2, end: 23.95, text: "Ses proportions, son équilibre…" },
+    { start: 24.0, end: 27.3, text: "Par peur d'être transformé ou tout simplement de ne plus se reconnaître." },
+    { start: 27.8, end: 30.4, text: "Justement, c'est ça le message que je veux transmettre." },
+    { start: 30.65, end: 33.8, text: "Quand je veux injecter un visage, je l'analyse dans sa globalité," },
+    { start: 33.95, end: 37.0, text: "ses proportions, son équilibre et surtout ce qui va le rendre unique." },
+    { start: 37.3, end: 40.3, text: "Des fois, une petite correction suffit pour harmoniser le visage." },
+    { start: 40.65, end: 43.9, text: "Quand je veux injecter un visage, je l'analyse dans sa globalité," },
+    { start: 44.1, end: 47.4, text: "ses proportions, son équilibre et surtout ce qui va le rendre unique." },
+    { start: 47.75, end: 51.5, text: "Parfois, une toute petite correction suffit pour harmoniser le visage." },
+    { start: 51.75, end: 53.6, text: "L'idée n'est pas de transformer, mais plutôt" }, // GUESS
+    { start: 54.6, end: 58.1, text: "de les mettre en valeur et ne pas créer des visages qui sont standardisés." },
+  ],
+  iconsOn: true,
+  icons: [
+    { t: 2.75, icon: "face", label: "visage" },
+    { t: 4.35, icon: "fingerprint", label: "identité" },
+    { t: 6.2, icon: "phone", label: "réseaux sociaux" },
+    { t: 13.4, icon: "alert", label: "transformé" },
+    { t: 17.3, icon: "message", label: "message" },
+    { t: 31.1, icon: "syringe", label: "injecter" },
+    { t: 41.05, icon: "syringe", label: "injecter" },
+    { t: 45.3, icon: "balance", label: "équilibre" },
+    { t: 46.75, icon: "sparkle", label: "unique" },
+    { t: 50.5, icon: "heart", label: "harmoniser" },
+    { t: 54.9, icon: "sparkle", label: "mettre en valeur" },
+  ],
+  brollOn: true,
+  broll: [
+    { t: 7.75, dur: 2.6, kind: "clones" },
+    { t: 41.7, dur: 2.5, kind: "analysis" },
+    { t: 55.6, dur: 2.6, kind: "unique" },
+  ],
+};

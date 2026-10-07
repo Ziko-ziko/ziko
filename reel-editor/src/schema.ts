@@ -1,17 +1,38 @@
 import { z } from "zod";
 
 export const FPS = 24;
-export const DURATION_SEC = 58.218667;
-export const DURATION_FRAMES = Math.round(DURATION_SEC * FPS);
+export const SOURCE_SEC = 58.218667;
 
 export const GRADE_IDS = ["teal", "golden", "emerald", "none"] as const;
 export type GradeId = (typeof GRADE_IDS)[number];
 
+export const ICON_IDS = [
+  "face",
+  "fingerprint",
+  "phone",
+  "lips",
+  "alert",
+  "message",
+  "syringe",
+  "balance",
+  "sparkle",
+  "heart",
+  "copies",
+] as const;
+export type IconId = (typeof ICON_IDS)[number];
+
+export const BROLL_KINDS = ["clones", "analysis", "unique", "user"] as const;
+export type BrollKind = (typeof BROLL_KINDS)[number];
+
+export const CAPTION_STYLES = ["pop", "karaoke", "box"] as const;
+
+// All times (`takes`, `cuts`, `captions`, `icons`, `broll`, `hook.until`) are SOURCE seconds (position in the
+// raw video), so switching a take on/off keeps everything attached to the right words.
+// `zooms` has one entry per zoom segment of the edited reel (user cuts + automatic cuts at take joins).
 export const reelSchema = z.object({
   src: z.string(),
-  // cut points in seconds; each one gets a zoom change + flash
-  cuts: z.array(z.number().min(0).max(DURATION_SEC)),
-  // zoom level per segment (cuts.length + 1 entries)
+  takes: z.array(z.object({ from: z.number(), to: z.number(), label: z.string(), on: z.boolean() })),
+  cuts: z.array(z.number().min(0)),
   zooms: z.array(z.number().min(1).max(1.6)),
   grade: z.enum(GRADE_IDS),
   flash: z.number().min(0).max(1),
@@ -20,22 +41,21 @@ export const reelSchema = z.object({
   pushIn: z.number().min(0).max(0.15),
   punch: z.number().min(0).max(0.15),
   anchorY: z.number().min(0).max(1),
+  hook: z.object({ on: z.boolean(), text: z.string(), sub: z.string(), until: z.number() }),
+  captionsOn: z.boolean(),
+  captionStyle: z.enum(CAPTION_STYLES),
+  captionY: z.number().min(0.4).max(0.92),
+  captionSize: z.number().min(40).max(110),
+  captions: z.array(z.object({ start: z.number(), end: z.number(), text: z.string() })),
+  iconsOn: z.boolean(),
+  icons: z.array(z.object({ t: z.number(), icon: z.enum(ICON_IDS), label: z.string() })),
+  brollOn: z.boolean(),
+  broll: z.array(
+    z.object({ t: z.number(), dur: z.number().min(0.5).max(6), kind: z.enum(BROLL_KINDS), src: z.string().optional() }),
+  ),
 });
 
 export type ReelProps = z.infer<typeof reelSchema>;
-
-export const defaultReel: ReelProps = {
-  src: "reel.mp4",
-  cuts: [3.3, 8.5, 12.7, 18.7, 24.3, 30.4, 34.8, 40.6, 45.2, 50.0, 54.6],
-  zooms: [1.0, 1.2, 1.07, 1.32, 1.0, 1.2, 1.07, 1.32, 1.0, 1.2, 1.07, 1.32],
-  grade: "teal",
-  flash: 0.7,
-  glow: 0.5,
-  transition: 0.32,
-  pushIn: 0.045,
-  punch: 0.06,
-  anchorY: 0.33,
-};
 
 export const GRADES: Record<
   GradeId,
@@ -44,7 +64,7 @@ export const GRADES: Record<
     swatch: [string, string];
     filter: string;
     tint: { color: string; mode: "soft-light" | "overlay" | "color"; opacity: number }[];
-    lift: number; // faded blacks
+    lift: number;
     vignette: number;
   }
 > = {
@@ -75,32 +95,79 @@ export const GRADES: Record<
     lift: 0,
     vignette: 0.65,
   },
-  none: {
-    label: "الأصلي",
-    swatch: ["#6b6b6b", "#d8d8d8"],
-    filter: "none",
-    tint: [],
-    lift: 0,
-    vignette: 0,
-  },
+  none: { label: "الأصلي", swatch: ["#6b6b6b", "#d8d8d8"], filter: "none", tint: [], lift: 0, vignette: 0 },
 };
+
+/* ---------- source ↔ output mapping ---------- */
+
+export type Clip = { from: number; to: number; outStart: number };
+
+export const clipsOf = (p: Pick<ReelProps, "takes">): Clip[] => {
+  const on = p.takes.filter((t) => t.on && t.to > t.from).sort((a, b) => a.from - b.from);
+  // merge touching takes so they play as one continuous clip
+  const merged: { from: number; to: number }[] = [];
+  for (const t of on) {
+    const last = merged[merged.length - 1];
+    if (last && t.from - last.to < 0.05) last.to = Math.max(last.to, t.to);
+    else merged.push({ from: t.from, to: t.to });
+  }
+  let acc = 0;
+  return merged.map((m) => {
+    const c = { ...m, outStart: acc };
+    acc += m.to - m.from;
+    return c;
+  });
+};
+
+export const outDuration = (clips: Clip[]) =>
+  clips.length ? clips[clips.length - 1].outStart + clips[clips.length - 1].to - clips[clips.length - 1].from : 1;
+
+export const durationFrames = (p: Pick<ReelProps, "takes">) => Math.max(Math.round(outDuration(clipsOf(p)) * FPS), 1);
+
+export const outToSrc = (clips: Clip[], T: number) => {
+  for (const c of clips) if (T < c.outStart + (c.to - c.from)) return c.from + Math.max(T - c.outStart, 0);
+  const l = clips[clips.length - 1];
+  return l ? l.to : T;
+};
+
+export const srcToOut = (clips: Clip[], s: number): number | null => {
+  for (const c of clips) if (s >= c.from && s < c.to) return c.outStart + (s - c.from);
+  return null;
+};
+
+/** joins between clips, in output seconds — each one is a hidden jump cut */
+export const joinsOf = (clips: Clip[]) => clips.slice(1).map((c) => c.outStart);
+
+/* ---------- zoom + flash ---------- */
 
 const ease = (x: number) => {
   const c = Math.min(Math.max(x, 0), 1);
   return c * c * (3 - 2 * c);
 };
 
-export const boundaries = (p: ReelProps) => [0, ...[...p.cuts].sort((a, b) => a - b), DURATION_SEC];
+/** user cuts (stored in source seconds) mapped to the output, plus an automatic cut at every join between takes */
+export const allCuts = (p: Pick<ReelProps, "cuts">, clips: Clip[], dur: number) => {
+  const out: number[] = [];
+  const user = p.cuts.map((c) => srcToOut(clips, c)).filter((c): c is number => c !== null);
+  for (const c of [...user, ...joinsOf(clips)].sort((a, b) => a - b)) {
+    if (c <= 0.05 || c >= dur - 0.05) continue;
+    if (out.length && c - out[out.length - 1] < 0.3) continue;
+    out.push(c);
+  }
+  return out;
+};
 
-const zoomAt = (p: ReelProps, i: number) => p.zooms[i] ?? p.zooms[p.zooms.length - 1] ?? 1;
+export const boundaries = (cuts: number[], dur: number) => [0, ...cuts, dur];
+
+const zoomAt = (p: ReelProps, i: number) => p.zooms[i] ?? p.zooms[i % Math.max(p.zooms.length, 1)] ?? 1;
 
 const segZoom = (p: ReelProps, B: number[], i: number, t: number) => {
   const prog = (t - B[i]) / Math.max(B[i + 1] - B[i], 0.01);
   return zoomAt(p, i) * (1 + p.pushIn * ease(prog));
 };
 
-export const zoomAtTime = (p: ReelProps, t: number) => {
-  const B = boundaries(p);
+export const zoomAtTime = (p: ReelProps, cuts: number[], dur: number, t: number) => {
+  const B = boundaries(cuts, dur);
   let i = B.length - 2;
   for (let k = 0; k < B.length - 1; k++) {
     if (t < B[k + 1]) {
@@ -118,12 +185,54 @@ export const zoomAtTime = (p: ReelProps, t: number) => {
   return z;
 };
 
-export const flashAtTime = (p: ReelProps, t: number) => {
+export const flashAtTime = (cuts: number[], t: number) => {
   let f = 0;
-  for (const b of p.cuts) {
+  for (const b of cuts) {
     const d = t - b;
     if (d >= -0.06 && d < 0) f = Math.max(f, (d + 0.06) / 0.06);
     else if (d >= 0 && d < 0.35) f = Math.max(f, Math.exp(-d / 0.09));
   }
   return f;
+};
+
+/* ---------- captions: per-word timing ---------- */
+
+export type Word = { text: string; start: number; end: number };
+
+/** splits each caption line into words, timed proportionally to their length */
+export const wordsOf = (captions: ReelProps["captions"]): Word[][] =>
+  captions.map((c) => {
+    const parts = c.text.split(/\s+/).filter(Boolean);
+    const weights = parts.map((w) => w.replace(/[^\p{L}\p{N}]/gu, "").length + 2);
+    const total = weights.reduce((a, b) => a + b, 0) || 1;
+    let acc = c.start;
+    return parts.map((w, i) => {
+      const d = ((c.end - c.start) * weights[i]) / total;
+      const word = { text: w, start: acc, end: acc + d };
+      acc += d;
+      return word;
+    });
+  });
+
+/** groups words into short on-screen chunks (max 3 words / ~18 chars) */
+export const chunksOf = (words: Word[]): Word[][] => {
+  const out: Word[][] = [];
+  let cur: Word[] = [];
+  let len = 0;
+  for (const w of words) {
+    if (cur.length && (cur.length >= 3 || len + w.text.length > 18)) {
+      out.push(cur);
+      cur = [];
+      len = 0;
+    }
+    cur.push(w);
+    len += w.text.length + 1;
+    if (/[.,!?;:]$/.test(w.text) && cur.length >= 2) {
+      out.push(cur);
+      cur = [];
+      len = 0;
+    }
+  }
+  if (cur.length) out.push(cur);
+  return out;
 };
