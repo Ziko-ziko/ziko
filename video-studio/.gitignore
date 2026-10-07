@@ -4,3 +4,9 @@ out/
 hyperframes/renders/
 __pycache__/
 *.blend1
+models/
+public/reel1/
+projects/*/source*.mp4
+projects/*/ref/
+projects/*/analysis/*.png
+projects/*/analysis/*.csv

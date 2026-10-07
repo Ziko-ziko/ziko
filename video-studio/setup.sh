@@ -28,4 +28,12 @@ npm install
 mkdir -p hyperframes/assets out
 cp node_modules/gsap/dist/gsap.min.js hyperframes/assets/
 
+echo "==> Speech-to-text models (Whisper large-v3-turbo + Silero VAD, offline)"
+mkdir -p models
+if [ ! -d models/sherpa-onnx-whisper-turbo ]; then
+  curl -L https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/sherpa-onnx-whisper-turbo.tar.bz2 | tar xj -C models
+fi
+[ -f models/silero_vad.onnx ] || curl -L -o models/silero_vad.onnx \
+  https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/silero_vad.onnx
+
 echo "==> Done. Try:  npm run render:intro   or   npm run studio"

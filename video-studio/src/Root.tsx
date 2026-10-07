@@ -2,6 +2,8 @@ import { Composition } from "remotion";
 import { TitleIntro, titleIntroSchema } from "./compositions/TitleIntro";
 import { LowerThird } from "./compositions/LowerThird";
 import { TheatreScene } from "./compositions/TheatreScene";
+import { ReelEdit } from "./reel1/ReelEdit";
+import reelData from "./reel1/data.json";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -41,6 +43,14 @@ export const RemotionRoot: React.FC = () => {
         width={1920}
         height={1080}
         defaultProps={{ title: "ZIKO" }}
+      />
+      <Composition
+        id="Reel1"
+        component={ReelEdit}
+        durationInFrames={Math.round(reelData.duration * 30)}
+        fps={30}
+        width={1080}
+        height={1920}
       />
     </>
   );

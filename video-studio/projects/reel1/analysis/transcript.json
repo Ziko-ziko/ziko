@@ -1,0 +1,1103 @@
+{
+ "language": "fr",
+ "segments": [
+  {
+   "start": 0.056,
+   "end": 0.68,
+   "text": "le filard",
+   "words": [
+    {
+     "start": 0.056,
+     "end": 0.264,
+     "text": "le"
+    },
+    {
+     "start": 0.264,
+     "end": 0.68,
+     "text": "filard"
+    }
+   ]
+  },
+  {
+   "start": 0.856,
+   "end": 2.396,
+   "text": "Merci pas j'en voulais au camin",
+   "words": [
+    {
+     "start": 0.856,
+     "end": 1.14,
+     "text": "Merci"
+    },
+    {
+     "start": 1.14,
+     "end": 1.342,
+     "text": "pas"
+    },
+    {
+     "start": 1.342,
+     "end": 1.585,
+     "text": "j'en"
+    },
+    {
+     "start": 1.585,
+     "end": 1.95,
+     "text": "voulais"
+    },
+    {
+     "start": 1.95,
+     "end": 2.112,
+     "text": "au"
+    },
+    {
+     "start": 2.112,
+     "end": 2.396,
+     "text": "camin"
+    }
+   ]
+  },
+  {
+   "start": 2.396,
+   "end": 5.236,
+   "text": "Chaque visage mérite de garder sa propre identité.",
+   "words": [
+    {
+     "start": 2.396,
+     "end": 2.781,
+     "text": "Chaque"
+    },
+    {
+     "start": 2.781,
+     "end": 3.166,
+     "text": "visage"
+    },
+    {
+     "start": 3.166,
+     "end": 3.551,
+     "text": "mérite"
+    },
+    {
+     "start": 3.551,
+     "end": 3.744,
+     "text": "de"
+    },
+    {
+     "start": 3.744,
+     "end": 4.129,
+     "text": "garder"
+    },
+    {
+     "start": 4.129,
+     "end": 4.321,
+     "text": "sa"
+    },
+    {
+     "start": 4.321,
+     "end": 4.707,
+     "text": "propre"
+    },
+    {
+     "start": 4.707,
+     "end": 5.236,
+     "text": "identité."
+    }
+   ]
+  },
+  {
+   "start": 5.236,
+   "end": 7.616,
+   "text": "Aujourd'hui, on va voir les réseaux sociaux où l'",
+   "words": [
+    {
+     "start": 5.236,
+     "end": 5.801,
+     "text": "Aujourd'hui,"
+    },
+    {
+     "start": 5.801,
+     "end": 5.962,
+     "text": "on"
+    },
+    {
+     "start": 5.962,
+     "end": 6.123,
+     "text": "va"
+    },
+    {
+     "start": 6.123,
+     "end": 6.365,
+     "text": "voir"
+    },
+    {
+     "start": 6.365,
+     "end": 6.567,
+     "text": "les"
+    },
+    {
+     "start": 6.567,
+     "end": 6.93,
+     "text": "réseaux"
+    },
+    {
+     "start": 6.93,
+     "end": 7.293,
+     "text": "sociaux"
+    },
+    {
+     "start": 7.293,
+     "end": 7.455,
+     "text": "où"
+    },
+    {
+     "start": 7.455,
+     "end": 7.616,
+     "text": "l'"
+    }
+   ]
+  },
+  {
+   "start": 7.616,
+   "end": 10.556,
+   "text": "ou les mêmes lèvres, les mêmes pommettes, les mêmes prof",
+   "words": [
+    {
+     "start": 7.616,
+     "end": 7.792,
+     "text": "ou"
+    },
+    {
+     "start": 7.792,
+     "end": 8.011,
+     "text": "les"
+    },
+    {
+     "start": 8.011,
+     "end": 8.318,
+     "text": "mêmes"
+    },
+    {
+     "start": 8.318,
+     "end": 8.713,
+     "text": "lèvres,"
+    },
+    {
+     "start": 8.713,
+     "end": 8.932,
+     "text": "les"
+    },
+    {
+     "start": 8.932,
+     "end": 9.24,
+     "text": "mêmes"
+    },
+    {
+     "start": 9.24,
+     "end": 9.766,
+     "text": "pommettes,"
+    },
+    {
+     "start": 9.766,
+     "end": 9.986,
+     "text": "les"
+    },
+    {
+     "start": 9.986,
+     "end": 10.293,
+     "text": "mêmes"
+    },
+    {
+     "start": 10.293,
+     "end": 10.556,
+     "text": "prof"
+    }
+   ]
+  },
+  {
+   "start": 10.556,
+   "end": 12.668,
+   "text": "beaucoup de gens qui ont peur de leur faire",
+   "words": [
+    {
+     "start": 10.556,
+     "end": 10.954,
+     "text": "beaucoup"
+    },
+    {
+     "start": 10.954,
+     "end": 11.114,
+     "text": "de"
+    },
+    {
+     "start": 11.114,
+     "end": 11.353,
+     "text": "gens"
+    },
+    {
+     "start": 11.353,
+     "end": 11.552,
+     "text": "qui"
+    },
+    {
+     "start": 11.552,
+     "end": 11.751,
+     "text": "ont"
+    },
+    {
+     "start": 11.751,
+     "end": 11.991,
+     "text": "peur"
+    },
+    {
+     "start": 11.991,
+     "end": 12.15,
+     "text": "de"
+    },
+    {
+     "start": 12.15,
+     "end": 12.389,
+     "text": "leur"
+    },
+    {
+     "start": 12.389,
+     "end": 12.668,
+     "text": "faire"
+    }
+   ]
+  },
+  {
+   "start": 12.76,
+   "end": 16.22,
+   "text": "par peur d'être transformée ou tout simplement de ne plus reconnaître.",
+   "words": [
+    {
+     "start": 12.76,
+     "end": 12.971,
+     "text": "par"
+    },
+    {
+     "start": 12.971,
+     "end": 13.224,
+     "text": "peur"
+    },
+    {
+     "start": 13.224,
+     "end": 13.562,
+     "text": "d'être"
+    },
+    {
+     "start": 13.562,
+     "end": 14.11,
+     "text": "transformée"
+    },
+    {
+     "start": 14.11,
+     "end": 14.279,
+     "text": "ou"
+    },
+    {
+     "start": 14.279,
+     "end": 14.532,
+     "text": "tout"
+    },
+    {
+     "start": 14.532,
+     "end": 15.039,
+     "text": "simplement"
+    },
+    {
+     "start": 15.039,
+     "end": 15.207,
+     "text": "de"
+    },
+    {
+     "start": 15.207,
+     "end": 15.376,
+     "text": "ne"
+    },
+    {
+     "start": 15.376,
+     "end": 15.629,
+     "text": "plus"
+    },
+    {
+     "start": 15.629,
+     "end": 16.22,
+     "text": "reconnaître."
+    }
+   ]
+  },
+  {
+   "start": 16.22,
+   "end": 18.684,
+   "text": "Justement, c'est ça le message que je veux transmettre",
+   "words": [
+    {
+     "start": 16.22,
+     "end": 16.682,
+     "text": "Justement,"
+    },
+    {
+     "start": 16.682,
+     "end": 16.951,
+     "text": "c'est"
+    },
+    {
+     "start": 16.951,
+     "end": 17.105,
+     "text": "ça"
+    },
+    {
+     "start": 17.105,
+     "end": 17.259,
+     "text": "le"
+    },
+    {
+     "start": 17.259,
+     "end": 17.606,
+     "text": "message"
+    },
+    {
+     "start": 17.606,
+     "end": 17.798,
+     "text": "que"
+    },
+    {
+     "start": 17.798,
+     "end": 17.952,
+     "text": "je"
+    },
+    {
+     "start": 17.952,
+     "end": 18.183,
+     "text": "veux"
+    },
+    {
+     "start": 18.183,
+     "end": 18.684,
+     "text": "transmettre"
+    }
+   ]
+  },
+  {
+   "start": 18.776,
+   "end": 21.996,
+   "text": "Quand je veux injecter un visage, je l'analyse dans sa globalité",
+   "words": [
+    {
+     "start": 18.776,
+     "end": 19.073,
+     "text": "Quand"
+    },
+    {
+     "start": 19.073,
+     "end": 19.242,
+     "text": "je"
+    },
+    {
+     "start": 19.242,
+     "end": 19.496,
+     "text": "veux"
+    },
+    {
+     "start": 19.496,
+     "end": 19.92,
+     "text": "injecter"
+    },
+    {
+     "start": 19.92,
+     "end": 20.089,
+     "text": "un"
+    },
+    {
+     "start": 20.089,
+     "end": 20.471,
+     "text": "visage,"
+    },
+    {
+     "start": 20.471,
+     "end": 20.64,
+     "text": "je"
+    },
+    {
+     "start": 20.64,
+     "end": 21.106,
+     "text": "l'analyse"
+    },
+    {
+     "start": 21.106,
+     "end": 21.36,
+     "text": "dans"
+    },
+    {
+     "start": 21.36,
+     "end": 21.53,
+     "text": "sa"
+    },
+    {
+     "start": 21.53,
+     "end": 21.996,
+     "text": "globalité"
+    }
+   ]
+  },
+  {
+   "start": 21.996,
+   "end": 24.124,
+   "text": "ses proportions, son équilibre.",
+   "words": [
+    {
+     "start": 21.996,
+     "end": 22.292,
+     "text": "ses"
+    },
+    {
+     "start": 22.292,
+     "end": 23.119,
+     "text": "proportions,"
+    },
+    {
+     "start": 23.119,
+     "end": 23.415,
+     "text": "son"
+    },
+    {
+     "start": 23.415,
+     "end": 24.124,
+     "text": "équilibre."
+    }
+   ]
+  },
+  {
+   "start": 24.216,
+   "end": 26.176,
+   "text": "Par peur d'être transformé autour de ça.",
+   "words": [
+    {
+     "start": 24.216,
+     "end": 24.42,
+     "text": "Par"
+    },
+    {
+     "start": 24.42,
+     "end": 24.665,
+     "text": "peur"
+    },
+    {
+     "start": 24.665,
+     "end": 24.992,
+     "text": "d'être"
+    },
+    {
+     "start": 24.992,
+     "end": 25.482,
+     "text": "transformé"
+    },
+    {
+     "start": 25.482,
+     "end": 25.809,
+     "text": "autour"
+    },
+    {
+     "start": 25.809,
+     "end": 25.972,
+     "text": "de"
+    },
+    {
+     "start": 25.972,
+     "end": 26.176,
+     "text": "ça."
+    }
+   ]
+  },
+  {
+   "start": 26.176,
+   "end": 27.836,
+   "text": "simplement de ne plus reconnaître.",
+   "words": [
+    {
+     "start": 26.176,
+     "end": 26.674,
+     "text": "simplement"
+    },
+    {
+     "start": 26.674,
+     "end": 26.84,
+     "text": "de"
+    },
+    {
+     "start": 26.84,
+     "end": 27.006,
+     "text": "ne"
+    },
+    {
+     "start": 27.006,
+     "end": 27.255,
+     "text": "plus"
+    },
+    {
+     "start": 27.255,
+     "end": 27.836,
+     "text": "reconnaître."
+    }
+   ]
+  },
+  {
+   "start": 27.836,
+   "end": 30.492,
+   "text": "justement, c'est le message que je veux transmettre.",
+   "words": [
+    {
+     "start": 27.836,
+     "end": 28.358,
+     "text": "justement,"
+    },
+    {
+     "start": 28.358,
+     "end": 28.663,
+     "text": "c'est"
+    },
+    {
+     "start": 28.663,
+     "end": 28.837,
+     "text": "le"
+    },
+    {
+     "start": 28.837,
+     "end": 29.229,
+     "text": "message"
+    },
+    {
+     "start": 29.229,
+     "end": 29.447,
+     "text": "que"
+    },
+    {
+     "start": 29.447,
+     "end": 29.621,
+     "text": "je"
+    },
+    {
+     "start": 29.621,
+     "end": 29.882,
+     "text": "veux"
+    },
+    {
+     "start": 29.882,
+     "end": 30.492,
+     "text": "transmettre."
+    }
+   ]
+  },
+  {
+   "start": 30.584,
+   "end": 32.404,
+   "text": "Quand j'ai injecté un visage,",
+   "words": [
+    {
+     "start": 30.584,
+     "end": 30.948,
+     "text": "Quand"
+    },
+    {
+     "start": 30.948,
+     "end": 31.26,
+     "text": "j'ai"
+    },
+    {
+     "start": 31.26,
+     "end": 31.728,
+     "text": "injecté"
+    },
+    {
+     "start": 31.728,
+     "end": 31.936,
+     "text": "un"
+    },
+    {
+     "start": 31.936,
+     "end": 32.404,
+     "text": "visage,"
+    }
+   ]
+  },
+  {
+   "start": 32.404,
+   "end": 34.824,
+   "text": "Je l'analyse dans sa globalité, ses proportions,",
+   "words": [
+    {
+     "start": 32.404,
+     "end": 32.577,
+     "text": "Je"
+    },
+    {
+     "start": 32.577,
+     "end": 33.052,
+     "text": "l'analyse"
+    },
+    {
+     "start": 33.052,
+     "end": 33.311,
+     "text": "dans"
+    },
+    {
+     "start": 33.311,
+     "end": 33.484,
+     "text": "sa"
+    },
+    {
+     "start": 33.484,
+     "end": 34.003,
+     "text": "globalité,"
+    },
+    {
+     "start": 34.003,
+     "end": 34.219,
+     "text": "ses"
+    },
+    {
+     "start": 34.219,
+     "end": 34.824,
+     "text": "proportions,"
+    }
+   ]
+  },
+  {
+   "start": 34.824,
+   "end": 37.276,
+   "text": "son équilibre et surtout ce qui va le rendre unique.",
+   "words": [
+    {
+     "start": 34.824,
+     "end": 35.019,
+     "text": "son"
+    },
+    {
+     "start": 35.019,
+     "end": 35.447,
+     "text": "équilibre"
+    },
+    {
+     "start": 35.447,
+     "end": 35.602,
+     "text": "et"
+    },
+    {
+     "start": 35.602,
+     "end": 35.953,
+     "text": "surtout"
+    },
+    {
+     "start": 35.953,
+     "end": 36.108,
+     "text": "ce"
+    },
+    {
+     "start": 36.108,
+     "end": 36.303,
+     "text": "qui"
+    },
+    {
+     "start": 36.303,
+     "end": 36.459,
+     "text": "va"
+    },
+    {
+     "start": 36.459,
+     "end": 36.614,
+     "text": "le"
+    },
+    {
+     "start": 36.614,
+     "end": 36.926,
+     "text": "rendre"
+    },
+    {
+     "start": 36.926,
+     "end": 37.276,
+     "text": "unique."
+    }
+   ]
+  },
+  {
+   "start": 37.4,
+   "end": 40.66,
+   "text": "Des fois, une petite correction, il suffit pour harmoniser le visage.",
+   "words": [
+    {
+     "start": 37.4,
+     "end": 37.601,
+     "text": "Des"
+    },
+    {
+     "start": 37.601,
+     "end": 37.883,
+     "text": "fois,"
+    },
+    {
+     "start": 37.883,
+     "end": 38.084,
+     "text": "une"
+    },
+    {
+     "start": 38.084,
+     "end": 38.406,
+     "text": "petite"
+    },
+    {
+     "start": 38.406,
+     "end": 38.929,
+     "text": "correction,"
+    },
+    {
+     "start": 38.929,
+     "end": 39.09,
+     "text": "il"
+    },
+    {
+     "start": 39.09,
+     "end": 39.412,
+     "text": "suffit"
+    },
+    {
+     "start": 39.412,
+     "end": 39.654,
+     "text": "pour"
+    },
+    {
+     "start": 39.654,
+     "end": 40.137,
+     "text": "harmoniser"
+    },
+    {
+     "start": 40.137,
+     "end": 40.298,
+     "text": "le"
+    },
+    {
+     "start": 40.298,
+     "end": 40.66,
+     "text": "visage."
+    }
+   ]
+  },
+  {
+   "start": 40.66,
+   "end": 42.46,
+   "text": "Quand je veux injecter un visage,",
+   "words": [
+    {
+     "start": 40.66,
+     "end": 40.975,
+     "text": "Quand"
+    },
+    {
+     "start": 40.975,
+     "end": 41.155,
+     "text": "je"
+    },
+    {
+     "start": 41.155,
+     "end": 41.425,
+     "text": "veux"
+    },
+    {
+     "start": 41.425,
+     "end": 41.875,
+     "text": "injecter"
+    },
+    {
+     "start": 41.875,
+     "end": 42.055,
+     "text": "un"
+    },
+    {
+     "start": 42.055,
+     "end": 42.46,
+     "text": "visage,"
+    }
+   ]
+  },
+  {
+   "start": 42.552,
+   "end": 45.172,
+   "text": "Je réalise dans sa globalité ses proportions.",
+   "words": [
+    {
+     "start": 42.552,
+     "end": 42.75,
+     "text": "Je"
+    },
+    {
+     "start": 42.75,
+     "end": 43.195,
+     "text": "réalise"
+    },
+    {
+     "start": 43.195,
+     "end": 43.491,
+     "text": "dans"
+    },
+    {
+     "start": 43.491,
+     "end": 43.689,
+     "text": "sa"
+    },
+    {
+     "start": 43.689,
+     "end": 44.233,
+     "text": "globalité"
+    },
+    {
+     "start": 44.233,
+     "end": 44.48,
+     "text": "ses"
+    },
+    {
+     "start": 44.48,
+     "end": 45.172,
+     "text": "proportions."
+    }
+   ]
+  },
+  {
+   "start": 45.172,
+   "end": 47.612,
+   "text": "son équilibre et surtout ce qui va le rendre unique.",
+   "words": [
+    {
+     "start": 45.172,
+     "end": 45.366,
+     "text": "son"
+    },
+    {
+     "start": 45.366,
+     "end": 45.792,
+     "text": "équilibre"
+    },
+    {
+     "start": 45.792,
+     "end": 45.947,
+     "text": "et"
+    },
+    {
+     "start": 45.947,
+     "end": 46.295,
+     "text": "surtout"
+    },
+    {
+     "start": 46.295,
+     "end": 46.45,
+     "text": "ce"
+    },
+    {
+     "start": 46.45,
+     "end": 46.644,
+     "text": "qui"
+    },
+    {
+     "start": 46.644,
+     "end": 46.799,
+     "text": "va"
+    },
+    {
+     "start": 46.799,
+     "end": 46.954,
+     "text": "le"
+    },
+    {
+     "start": 46.954,
+     "end": 47.263,
+     "text": "rendre"
+    },
+    {
+     "start": 47.263,
+     "end": 47.612,
+     "text": "unique."
+    }
+   ]
+  },
+  {
+   "start": 47.832,
+   "end": 49.872,
+   "text": "parfois une toute petite correction.",
+   "words": [
+    {
+     "start": 47.832,
+     "end": 48.269,
+     "text": "parfois"
+    },
+    {
+     "start": 48.269,
+     "end": 48.512,
+     "text": "une"
+    },
+    {
+     "start": 48.512,
+     "end": 48.852,
+     "text": "toute"
+    },
+    {
+     "start": 48.852,
+     "end": 49.241,
+     "text": "petite"
+    },
+    {
+     "start": 49.241,
+     "end": 49.872,
+     "text": "correction."
+    }
+   ]
+  },
+  {
+   "start": 49.872,
+   "end": 51.732,
+   "text": "suffit pour harmoniser le vidage.",
+   "words": [
+    {
+     "start": 49.872,
+     "end": 50.254,
+     "text": "suffit"
+    },
+    {
+     "start": 50.254,
+     "end": 50.54,
+     "text": "pour"
+    },
+    {
+     "start": 50.54,
+     "end": 51.112,
+     "text": "harmoniser"
+    },
+    {
+     "start": 51.112,
+     "end": 51.303,
+     "text": "le"
+    },
+    {
+     "start": 51.303,
+     "end": 51.732,
+     "text": "vidage."
+    }
+   ]
+  },
+  {
+   "start": 51.732,
+   "end": 54.492,
+   "text": "Le hôde n'est pas de mâle de plouto",
+   "words": [
+    {
+     "start": 51.732,
+     "end": 51.983,
+     "text": "Le"
+    },
+    {
+     "start": 51.983,
+     "end": 52.359,
+     "text": "hôde"
+    },
+    {
+     "start": 52.359,
+     "end": 52.798,
+     "text": "n'est"
+    },
+    {
+     "start": 52.798,
+     "end": 53.112,
+     "text": "pas"
+    },
+    {
+     "start": 53.112,
+     "end": 53.363,
+     "text": "de"
+    },
+    {
+     "start": 53.363,
+     "end": 53.739,
+     "text": "mâle"
+    },
+    {
+     "start": 53.739,
+     "end": 53.99,
+     "text": "de"
+    },
+    {
+     "start": 53.99,
+     "end": 54.492,
+     "text": "plouto"
+    }
+   ]
+  },
+  {
+   "start": 54.744,
+   "end": 58.208,
+   "text": "les mettre en valeur et ne pas créer des visages qui sont standardisés.",
+   "words": [
+    {
+     "start": 54.744,
+     "end": 54.948,
+     "text": "les"
+    },
+    {
+     "start": 54.948,
+     "end": 55.274,
+     "text": "mettre"
+    },
+    {
+     "start": 55.274,
+     "end": 55.437,
+     "text": "en"
+    },
+    {
+     "start": 55.437,
+     "end": 55.763,
+     "text": "valeur"
+    },
+    {
+     "start": 55.763,
+     "end": 55.926,
+     "text": "et"
+    },
+    {
+     "start": 55.926,
+     "end": 56.089,
+     "text": "ne"
+    },
+    {
+     "start": 56.089,
+     "end": 56.293,
+     "text": "pas"
+    },
+    {
+     "start": 56.293,
+     "end": 56.578,
+     "text": "créer"
+    },
+    {
+     "start": 56.578,
+     "end": 56.782,
+     "text": "des"
+    },
+    {
+     "start": 56.782,
+     "end": 57.148,
+     "text": "visages"
+    },
+    {
+     "start": 57.148,
+     "end": 57.352,
+     "text": "qui"
+    },
+    {
+     "start": 57.352,
+     "end": 57.597,
+     "text": "sont"
+    },
+    {
+     "start": 57.597,
+     "end": 58.208,
+     "text": "standardisés."
+    }
+   ]
+  }
+ ]
+}

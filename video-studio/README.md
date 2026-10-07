@@ -48,6 +48,22 @@ Theatre kaykhzen l-modifications f browser. Mli tsali, kliki 3la **Ziko Motion**
 
 > Bach trja3 l-animation l-asliya: `python3 scripts/make_theatre_state.py`
 
+## Montage dyal Reel (talking head) — `projects/reel1/`
+
+Pipeline kamel li tsta3mel f `Reel1` (kat9der t3awdo l ay video jdida):
+
+```bash
+.venv/bin/python scripts/transcribe.py raw.mp4 projects/reel1/analysis/transcript.json fr   # transcription + timing
+.venv/bin/python scripts/track_face.py raw.mp4 projects/reel1/analysis/face.json            # tracking dyal l-wjah
+projects/reel1/make_assets.sh raw.mp4        # color grade + n9a l-sout + SFX + music
+.venv/bin/python projects/reel1/build_data.py   # takes, captions, zooms, markers -> src/reel1/data.json
+npx remotion render src/index.ts Reel1 out/reel1.mp4
+python3 projects/reel1/export_srt.py           # subtitles .srt
+```
+
+- Bach tbeddel text dyal subtitles wla les takes: `CHUNKS` w `SEGMENTS` f `projects/reel1/build_data.py`.
+- Effects: `src/reel1/` (BrollFeed, FaceHUD, BrollStandard, Captions, EndCard...).
+
 ## `scripts/edit.sh` — ffmpeg sahel
 
 ```bash
