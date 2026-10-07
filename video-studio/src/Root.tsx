@@ -1,6 +1,7 @@
 import { Composition } from "remotion";
 import { TitleIntro, titleIntroSchema } from "./compositions/TitleIntro";
 import { LowerThird } from "./compositions/LowerThird";
+import { TheatreScene } from "./compositions/TheatreScene";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -31,6 +32,15 @@ export const RemotionRoot: React.FC = () => {
         width={1920}
         height={1080}
         defaultProps={{ name: "Ziko", role: "Motion Designer" }}
+      />
+      <Composition
+        id="TheatreScene"
+        component={TheatreScene}
+        durationInFrames={150}
+        fps={30}
+        width={1920}
+        height={1080}
+        defaultProps={{ title: "ZIKO" }}
       />
     </>
   );

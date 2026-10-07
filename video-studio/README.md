@@ -27,9 +27,26 @@ cd video-studio
 ## Remotion compositions (`src/compositions/`)
 
 - `TitleIntro` — intro animé 1920x1080 (w `TitleIntroVertical` 1080x1920 l Reels/TikTok)
+- `TheatreScene` — animation b keyframes dyal Theatre.js (chouf l-te7t)
 - `LowerThird` — smiya + role b background transparent (ProRes 4444) bach t7tto fo9 ay video
 
 Bdel text/colors f `src/Root.tsx` (`defaultProps`) ola mn Remotion Studio direct.
+
+## Theatre.js — keyframes w graph editor b7al After Effects 🎛️
+
+Composition `TheatreScene` kat7errek b **Theatre.js**: kol 7aja (position, scale, rotation, opacity, blur, color...) tqder t7ett liha keyframes b l-mouse w tbeddel l-easing f **graph editor**.
+
+1. `npm run studio` w 7el `TheatreScene`.
+2. F jenb l-issar, kliki 3la **Title** wla **Shape** → l-props kaybanou f limen, w timeline dyal Theatre kayban l-te7t.
+3. **Keyframe:** kliki 3la l-icône `◆` 7da l-prop, w bdel l-9ima f wa9t akhor.
+4. **Graph editor:** kliki 3la l-icône dyal curve 7da l-prop. Wla kliki 3la l-khat bin 2 keyframes bach tkhtar easing (ease-in, ease-out, back...).
+5. L-playhead dyal Remotion kaykhdem m3a Theatre: ila tbeddel frame f Remotion, Theatre kaytba3o.
+6. `Alt + \` (Mac: `Option + \`) bach t-khbi/tbyen interface dyal Theatre.
+
+**Bach tsauvgardi l-animation l render:**
+Theatre kaykhzen l-modifications f browser. Mli tsali, kliki 3la **Ziko Motion** (l-project f l-issar) → **Export Ziko Motion to JSON**, w 7ett l-fichier blast `src/theatre/state.json`. Mn ba3d: `npm run render:theatre`.
+
+> Bach trja3 l-animation l-asliya: `python3 scripts/make_theatre_state.py`
 
 ## `scripts/edit.sh` — ffmpeg sahel
 

@@ -9,11 +9,12 @@
     "render:intro": "remotion render src/index.ts TitleIntro out/title-intro.mp4",
     "render:lowerthird": "remotion render src/index.ts LowerThird out/lower-third.mov --codec=prores --prores-profile=4444 --pixel-format=yuva444p10le --image-format=png",
     "render:vertical": "remotion render src/index.ts TitleIntroVertical out/title-intro-vertical.mp4",
+    "render:theatre": "remotion render src/index.ts TheatreScene out/theatre-scene.mp4",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@remotion/cli": "4.0.533",
     "@remotion/captions": "4.0.533",
+    "@remotion/cli": "4.0.533",
     "@remotion/google-fonts": "4.0.533",
     "@remotion/lottie": "4.0.533",
     "@remotion/media-utils": "4.0.533",
@@ -22,6 +23,8 @@
     "@remotion/paths": "4.0.533",
     "@remotion/shapes": "4.0.533",
     "@remotion/transitions": "4.0.533",
+    "@theatre/core": "^0.7.2",
+    "@theatre/studio": "^0.7.2",
     "gsap": "^3.15.0",
     "hyperframes": "^0.8.138",
     "lottie-web": "^5.12.2",
