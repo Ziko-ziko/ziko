@@ -1,0 +1,8 @@
+{
+  "allowed_senders": ["whatsapp:+212600000000"],
+  "projects": {
+    "#podcast": "~/projects/podcast",
+    "#animation": "~/projects/animation",
+    "#video": "~/projects/video"
+  }
+}
