@@ -72,9 +72,11 @@ export const RemotionRoot: React.FC = () => {
             activeWordScale: 1.08,
             activeWordRotation: -2,
             shadow: true,
+            enterAnimation: "perCharacterRise",
+            exitAnimation: "blurOutUp",
           },
           hook: {
-            show: true,
+            show: false,
             label: "MÉDECINE ESTHÉTIQUE",
             line1: "Pourquoi tout le monde",
             line2: "a le *même* visage ?",
@@ -84,7 +86,7 @@ export const RemotionRoot: React.FC = () => {
             labelSize: 26,
           },
           feed: { labels: ["MÊMES LÈVRES", "MÊMES POMMETTES", "MÊMES PROFILS"], labelSize: 58, labelY: 640 },
-          hud: { show: true, labelSize: 31, uniqueText: "✦ UNIQUE" },
+          hud: { show: true, labelSize: 31, uniqueText: "✦ UNIQUE", brollFaceSize: 400 },
           stamp: { text: "STANDARDISÉS", fontSize: 112, rotation: -9 },
           endCard: {
             line1: "Chaque visage",

@@ -2,6 +2,7 @@ import { interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
 import { DATA, M, type Word } from "./data";
 import { useStyle } from "./style";
 import { SANS } from "./theme";
+import { blurOutUp } from "./TextAnim";
 
 /** Group words into caption pages: up to `max` words / ~18 chars, break after punctuation. */
 function buildPages(words: Word[], max: number): Word[][] {
@@ -36,8 +37,14 @@ export const Captions: React.FC = () => {
   const page = pages[pi];
   if (t > page[page.length - 1].end + 0.6) return null;
 
-  const enterFrame = Math.round((page[0].start - 0.05) * fps);
-  const pop = spring({ frame: frame - enterFrame, fps, config: { damping: 14, stiffness: 220, mass: 0.6 } });
+  const enterAt = page[0].start - 0.05;
+  const enterFrame = Math.round(enterAt * fps);
+  const springPop = spring({ frame: frame - enterFrame, fps, config: { damping: 14, stiffness: 220, mass: 0.6 } });
+  const pop = c.enterAnimation === "pop" ? springPop : 1;
+  const nextPage = pages[pi + 1];
+  const pageEnd = nextPage ? nextPage[0].start - 0.05 : page[page.length - 1].end + 0.6;
+  const exit = c.exitAnimation === "blurOutUp" ? blurOutUp(t, pageEnd - 0.14, pageEnd) : {};
+  let charIdx = 0;
 
   return (
     <div
@@ -48,6 +55,8 @@ export const Captions: React.FC = () => {
         top: c.y,
         transform: `translateY(-50%) scale(${interpolate(pop, [0, 1], [0.82, 1])})`,
         opacity: interpolate(pop, [0, 1], [0, 1]),
+        ...exit,
+        ...(exit.transform ? { transform: `translateY(-50%) ${exit.transform}` } : {}),
         display: "flex",
         flexWrap: "wrap",
         justifyContent: "center",
@@ -67,6 +76,10 @@ export const Captions: React.FC = () => {
         const spoken = t >= w.start;
         const bump = spring({ frame: frame - Math.round(w.start * fps), fps, config: { damping: 12, stiffness: 260, mass: 0.5 } });
         const box = active && c.highlightStyle === "box";
+        const wordIdx = i;
+        const chars = Array.from(w.text.replace(/[.,]$/, ""));
+        const firstChar = charIdx;
+        charIdx += chars.length;
         let color = spoken && w.emph ? c.emphasisColor : c.textColor;
         if (active && c.highlightStyle === "box") color = c.highlightTextColor;
         if (active && (c.highlightStyle === "color" || c.highlightStyle === "underline")) color = c.emphasisColor;
@@ -109,7 +122,21 @@ export const Captions: React.FC = () => {
                 }}
               />
             )}
-            {w.text.replace(/[.,]$/, "")}
+            {c.enterAnimation === "perCharacterRise"
+              ? chars.map((ch, ci) => {
+                  const p = spring({ frame: frame - enterFrame - Math.round((firstChar + ci) * 0.6), fps, config: { damping: 16, stiffness: 240, mass: 0.5 } });
+                  return (
+                    <span key={ci} style={{ display: "inline-block", opacity: p, transform: `translateY(${(1 - p) * 0.5}em)` }}>
+                      {ch}
+                    </span>
+                  );
+                })
+              : c.enterAnimation === "lineByLineSlide"
+                ? (() => {
+                    const p = spring({ frame: frame - enterFrame - wordIdx * 3, fps, config: { damping: 18, stiffness: 160 } });
+                    return <span style={{ display: "inline-block", opacity: p, transform: `translateX(${(1 - p) * -60}px)` }}>{chars.join("")}</span>;
+                  })()
+                : chars.join("")}
           </span>
         );
       })}

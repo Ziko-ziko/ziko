@@ -5,7 +5,7 @@ import { BrollStandard } from "./BrollStandard";
 import { Captions } from "./Captions";
 import { M } from "./data";
 import { EndCard } from "./EndCard";
-import { FaceAnalysis, Harmony } from "./FaceHUD";
+import { BrollAnalysis, BrollHarmony } from "./BrollFace";
 import { Footage } from "./Footage";
 import { HookTitle } from "./HookTitle";
 import { type ReelStyle, StyleContext } from "./style";
@@ -18,10 +18,12 @@ const SFX: [number, string, number][] = [
   [M.profils, "pop", 0.8],
   [M.brollFeedOut - 0.2, "whoosh", 0.8],
   [M.reconnaitre + 0.05, "glitch", 0.8],
+  [M.globalite - 1.05, "whoosh", 0.8],
   [M.globalite, "pop", 0.45],
   [M.proportions, "pop", 0.45],
   [M.equilibre, "pop", 0.45],
   [M.unique, "chime", 0.6],
+  [M.correction - 0.45, "whoosh", 0.8],
   [M.harmoniser, "pop", 0.5],
   [M.standardIn - 0.2, "whoosh", 0.9],
   [M.standardises, "glitch", 1],
@@ -43,8 +45,8 @@ export const ReelEdit: React.FC<ReelStyle> = (style) => {
     <StyleContext.Provider value={style}>
     <AbsoluteFill style={{ background: "#000" }}>
       <Footage />
-      <FaceAnalysis from={M.globalite - 0.6} to={M.unique + 1.4} />
-      <Harmony />
+      <BrollAnalysis from={M.globalite - 0.9} to={M.unique + 0.55} />
+      <BrollHarmony from={M.correction - 0.3} to={M.harmoniser + 1.25} />
       <BrollFeed from={M.brollFeedIn} to={M.brollFeedOut} />
       <BrollStandard from={M.standardIn} stampAt={M.standardises} to={M.speechEnd - 0.1} />
       <HookTitle until={M.brollFeedIn} />

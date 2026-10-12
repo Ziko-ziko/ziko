@@ -66,7 +66,8 @@ python3 projects/reel1/export_srt.py           # subtitles .srt
 1. `npm run studio` → 7el **Reel1**.
 2. F limen (**Props**) kayn kolchi: `accent` (lon), `captions` (y = position, fontSize, fontWeight, italic, uppercase, highlightStyle box/color/underline, kalimat f kol page...), `hook`, `feed`, `hud`, `stamp`, `endCard`, `musicVolume`, `sfxVolume`.
 3. L-preview kaytbeddel f l-7in. Mli tsali, kliki **Save** (kaykteb l-9iyam f `src/Root.tsx`), w mn ba3d **Render** (l-fo9 limen) wla `npx remotion render src/index.ts Reel1 out/reel1.mp4`.
-4. F text dyal `hook.line2` w `endCard.line2`, `*kelma*` katwelli b lon `accent`.
+4. Animations dyal text: `captions.enterAnimation` (perCharacterRise / lineByLineSlide / pop) w `captions.exitAnimation` (blurOutUp / none). Size dyal l-wjah f B-roll: `hud.brollFaceSize`.
+5. F text dyal `hook.line2` w `endCard.line2`, `*kelma*` katwelli b lon `accent`.
 
 Font: **Montserrat** (400 → 900, normal + italic) f `public/fonts/`.
 

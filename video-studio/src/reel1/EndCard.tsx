@@ -1,7 +1,8 @@
-import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
 import { FaceArt } from "./FaceArt";
 import { accentText, useStyle } from "./style";
 import { GOLD, INK, SANS } from "./theme";
+import { LineByLineSlide, PerCharacterRise } from "./TextAnim";
 
 export const EndCard: React.FC<{ from: number }> = ({ from }) => {
   const frame = useCurrentFrame();
@@ -13,8 +14,6 @@ export const EndCard: React.FC<{ from: number }> = ({ from }) => {
   const bg = interpolate(local, [0, 0.35], [0, 1], { extrapolateRight: "clamp" });
   const draw = interpolate(local, [0.1, 1.3], [0, 1], { extrapolateRight: "clamp" });
   const glow = interpolate(local, [1.0, 1.6], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-  const title = spring({ frame: frame - Math.round((from + 0.5) * fps), fps, config: { damping: 18, stiffness: 120 } });
-  const sub = spring({ frame: frame - Math.round((from + 0.9) * fps), fps, config: { damping: 18, stiffness: 120 } });
 
   return (
     <AbsoluteFill
@@ -44,13 +43,9 @@ export const EndCard: React.FC<{ from: number }> = ({ from }) => {
           textAlign: "center",
           lineHeight: 1.12,
           letterSpacing: "-0.01em",
-          opacity: title,
-          transform: `translateY(${(1 - title) * 40}px)`,
         }}
       >
-        {accentText(e.line1, accent)}
-        <br />
-        {accentText(e.line2, accent)}
+        <LineByLineSlide at={from + 0.5} lines={[accentText(e.line1, accent), accentText(e.line2, accent)]} />
       </div>
       <div
         style={{
@@ -59,11 +54,9 @@ export const EndCard: React.FC<{ from: number }> = ({ from }) => {
           fontSize: e.subtitleSize,
           letterSpacing: "0.38em",
           color: GOLD,
-          opacity: sub,
-          transform: `translateY(${(1 - sub) * 30}px)`,
         }}
       >
-        {e.subtitle}
+        <PerCharacterRise text={e.subtitle} at={from + 0.9} stagger={0.018} />
       </div>
     </AbsoluteFill>
   );

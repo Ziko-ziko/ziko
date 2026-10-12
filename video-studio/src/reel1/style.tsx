@@ -23,6 +23,8 @@ export const reelSchema = z.object({
     activeWordScale: z.number().min(1).max(1.5).step(0.01),
     activeWordRotation: z.number().min(-10).max(10).step(0.5),
     shadow: z.boolean(),
+    enterAnimation: z.enum(["perCharacterRise", "lineByLineSlide", "pop"]),
+    exitAnimation: z.enum(["blurOutUp", "none"]),
   }),
   hook: z.object({
     show: z.boolean(),
@@ -43,6 +45,7 @@ export const reelSchema = z.object({
     show: z.boolean(),
     labelSize: z.number().min(14).max(60).step(1),
     uniqueText: z.string(),
+    brollFaceSize: z.number().min(200).max(700).step(10).describe("Size of the line-art face in the B-rolls"),
   }),
   stamp: z.object({ text: z.string(), fontSize: z.number().min(40).max(200).step(1), rotation: z.number().min(-30).max(30).step(0.5) }),
   endCard: z.object({
