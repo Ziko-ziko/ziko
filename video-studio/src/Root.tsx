@@ -5,6 +5,8 @@ import { TheatreScene } from "./compositions/TheatreScene";
 import { ReelEdit } from "./reel1/ReelEdit";
 import { reelSchema } from "./reel1/style";
 import reelData from "./reel1/data.json";
+import { SubEdit } from "./sub/SubEdit";
+import subData from "./sub/data.json";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -61,6 +63,66 @@ export const RemotionRoot: React.FC = () => {
             title: "Playfair Display",
             titleItalic: true,
             emphasisInTitleFont: false,
+          },
+          captions: {
+            show: true,
+            y: 1300,
+            fontSize: 64,
+            fontWeight: "700",
+            italic: false,
+            uppercase: true,
+            letterSpacing: -0.01,
+            maxWordsPerPage: 3,
+            textColor: "#ffffff",
+            emphasisColor: "#ff3fa4",
+            highlightStyle: "box",
+            highlightTextColor: "#ffffff",
+            activeWordScale: 1.08,
+            activeWordRotation: -2,
+            shadow: true,
+            enterAnimation: "perCharacterRise",
+            exitAnimation: "blurOutUp",
+          },
+          hook: {
+            show: false,
+            label: "MÉDECINE ESTHÉTIQUE",
+            line1: "Pourquoi tout le monde",
+            line2: "a le *même* visage ?",
+            y: 150,
+            fontSize: 74,
+            labelSize: 26,
+          },
+          feed: { labels: ["MÊMES LÈVRES", "MÊMES POMMETTES", "MÊMES PROFILS"], labelSize: 58, labelY: 640 },
+          hud: { show: true, labelSize: 31, uniqueText: "✦ UNIQUE", brollFaceSize: 400 },
+          stamp: { text: "STANDARDISÉS", fontSize: 112, rotation: -9 },
+          endCard: {
+            line1: "Chaque visage",
+            line2: "est *unique.*",
+            subtitle: "SUBLIMER, PAS TRANSFORMER",
+            titleSize: 88,
+            subtitleSize: 30,
+            y: 360,
+          },
+          progressBar: true,
+          musicVolume: 0.55,
+          sfxVolume: 1,
+        }}
+      />
+      <Composition
+        id="SalmaGlowRRS"
+        component={SubEdit}
+        durationInFrames={Math.round(subData.duration * 30)}
+        fps={30}
+        width={1080}
+        height={1920}
+        schema={reelSchema}
+        defaultProps={{
+          accent: "#ff3fa4",
+          fonts: {
+            body: "Montserrat",
+            title: "Playfair Display",
+            titleItalic: true,
+            emphasisInTitleFont: true,
           },
           captions: {
             show: true,

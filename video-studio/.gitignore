@@ -10,3 +10,4 @@ projects/*/source*.mp4
 projects/*/ref/
 projects/*/analysis/*.png
 projects/*/analysis/*.csv
+public/sub/

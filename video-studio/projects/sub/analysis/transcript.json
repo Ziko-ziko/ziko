@@ -1,0 +1,245 @@
+{
+ "language": "fr",
+ "segments": [
+  {
+   "start": 0.12,
+   "end": 3.34,
+   "text": "Donc chez cette patiente, on va préconiser le protocole Spanish GLOW.",
+   "words": [
+    {
+     "start": 0.12,
+     "end": 0.359,
+     "text": "Donc"
+    },
+    {
+     "start": 0.359,
+     "end": 0.597,
+     "text": "chez"
+    },
+    {
+     "start": 0.597,
+     "end": 0.875,
+     "text": "cette"
+    },
+    {
+     "start": 0.875,
+     "end": 1.313,
+     "text": "patiente,"
+    },
+    {
+     "start": 1.313,
+     "end": 1.472,
+     "text": "on"
+    },
+    {
+     "start": 1.472,
+     "end": 1.631,
+     "text": "va"
+    },
+    {
+     "start": 1.631,
+     "end": 2.108,
+     "text": "préconiser"
+    },
+    {
+     "start": 2.108,
+     "end": 2.267,
+     "text": "le"
+    },
+    {
+     "start": 2.267,
+     "end": 2.704,
+     "text": "protocole"
+    },
+    {
+     "start": 2.704,
+     "end": 3.062,
+     "text": "Spanish"
+    },
+    {
+     "start": 3.062,
+     "end": 3.34,
+     "text": "GLOW."
+    }
+   ]
+  },
+  {
+   "start": 3.34,
+   "end": 4.92,
+   "text": "qui contient le loulan.",
+   "words": [
+    {
+     "start": 3.34,
+     "end": 3.622,
+     "text": "qui"
+    },
+    {
+     "start": 3.622,
+     "end": 4.186,
+     "text": "contient"
+    },
+    {
+     "start": 4.186,
+     "end": 4.412,
+     "text": "le"
+    },
+    {
+     "start": 4.412,
+     "end": 4.92,
+     "text": "loulan."
+    }
+   ]
+  },
+  {
+   "start": 4.92,
+   "end": 8.14,
+   "text": "le RRS Langlastine. C'est un produit que j'aime beaucoup.",
+   "words": [
+    {
+     "start": 4.92,
+     "end": 5.112,
+     "text": "le"
+    },
+    {
+     "start": 5.112,
+     "end": 5.353,
+     "text": "RRS"
+    },
+    {
+     "start": 5.353,
+     "end": 6.025,
+     "text": "Langlastine."
+    },
+    {
+     "start": 6.025,
+     "end": 6.362,
+     "text": "C'est"
+    },
+    {
+     "start": 6.362,
+     "end": 6.554,
+     "text": "un"
+    },
+    {
+     "start": 6.554,
+     "end": 6.987,
+     "text": "produit"
+    },
+    {
+     "start": 6.987,
+     "end": 7.227,
+     "text": "que"
+    },
+    {
+     "start": 7.227,
+     "end": 7.611,
+     "text": "j'aime"
+    },
+    {
+     "start": 7.611,
+     "end": 8.14,
+     "text": "beaucoup."
+    }
+   ]
+  },
+  {
+   "start": 8.14,
+   "end": 11.2,
+   "text": "C'est un skimbul d'air qu'on va injecter en prof",
+   "words": [
+    {
+     "start": 8.14,
+     "end": 8.509,
+     "text": "C'est"
+    },
+    {
+     "start": 8.509,
+     "end": 8.72,
+     "text": "un"
+    },
+    {
+     "start": 8.72,
+     "end": 9.195,
+     "text": "skimbul"
+    },
+    {
+     "start": 9.195,
+     "end": 9.564,
+     "text": "d'air"
+    },
+    {
+     "start": 9.564,
+     "end": 9.934,
+     "text": "qu'on"
+    },
+    {
+     "start": 9.934,
+     "end": 10.145,
+     "text": "va"
+    },
+    {
+     "start": 10.145,
+     "end": 10.672,
+     "text": "injecter"
+    },
+    {
+     "start": 10.672,
+     "end": 10.883,
+     "text": "en"
+    },
+    {
+     "start": 10.883,
+     "end": 11.2,
+     "text": "prof"
+    }
+   ]
+  },
+  {
+   "start": 11.2,
+   "end": 14.208,
+   "text": "pour une hydratation profonde et un effet lifting.",
+   "words": [
+    {
+     "start": 11.2,
+     "end": 11.506,
+     "text": "pour"
+    },
+    {
+     "start": 11.506,
+     "end": 11.761,
+     "text": "une"
+    },
+    {
+     "start": 11.761,
+     "end": 12.424,
+     "text": "hydratation"
+    },
+    {
+     "start": 12.424,
+     "end": 12.933,
+     "text": "profonde"
+    },
+    {
+     "start": 12.933,
+     "end": 13.137,
+     "text": "et"
+    },
+    {
+     "start": 13.137,
+     "end": 13.341,
+     "text": "un"
+    },
+    {
+     "start": 13.341,
+     "end": 13.698,
+     "text": "effet"
+    },
+    {
+     "start": 13.698,
+     "end": 14.208,
+     "text": "lifting."
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,276 @@
+{
+ "fps": 30,
+ "duration": 15.429,
+ "videoEnd": 14.229,
+ "speechEnd": 14.21,
+ "words": [
+  {
+   "text": "Donc",
+   "start": 0.12,
+   "end": 0.26,
+   "emph": false
+  },
+  {
+   "text": "chez",
+   "start": 0.26,
+   "end": 0.401,
+   "emph": false
+  },
+  {
+   "text": "cette",
+   "start": 0.401,
+   "end": 0.598,
+   "emph": false
+  },
+  {
+   "text": "patiente,",
+   "start": 0.598,
+   "end": 1.019,
+   "emph": false
+  },
+  {
+   "text": "on",
+   "start": 1.019,
+   "end": 1.16,
+   "emph": false
+  },
+  {
+   "text": "va",
+   "start": 1.16,
+   "end": 1.3,
+   "emph": false
+  },
+  {
+   "text": "préconiser",
+   "start": 1.3,
+   "end": 1.862,
+   "emph": false
+  },
+  {
+   "text": "le",
+   "start": 1.862,
+   "end": 2.002,
+   "emph": false
+  },
+  {
+   "text": "protocole",
+   "start": 2.002,
+   "end": 2.48,
+   "emph": false
+  },
+  {
+   "text": "Spanish",
+   "start": 2.48,
+   "end": 2.919,
+   "emph": true
+  },
+  {
+   "text": "Glow,",
+   "start": 2.919,
+   "end": 3.27,
+   "emph": true
+  },
+  {
+   "text": "qui",
+   "start": 3.34,
+   "end": 3.564,
+   "emph": false
+  },
+  {
+   "text": "contient",
+   "start": 3.564,
+   "end": 4.011,
+   "emph": false
+  },
+  {
+   "text": "le",
+   "start": 4.011,
+   "end": 4.235,
+   "emph": false
+  },
+  {
+   "text": "Lola,",
+   "start": 4.235,
+   "end": 4.816,
+   "emph": false
+  },
+  {
+   "text": "le",
+   "start": 4.816,
+   "end": 5.04,
+   "emph": false
+  },
+  {
+   "text": "RRS",
+   "start": 5.04,
+   "end": 5.307,
+   "emph": true
+  },
+  {
+   "text": "HA",
+   "start": 5.307,
+   "end": 5.64,
+   "emph": true
+  },
+  {
+   "text": "Long",
+   "start": 5.64,
+   "end": 5.973,
+   "emph": true
+  },
+  {
+   "text": "Lasting.",
+   "start": 5.973,
+   "end": 6.84,
+   "emph": true
+  },
+  {
+   "text": "C'est",
+   "start": 6.84,
+   "end": 6.968,
+   "emph": false
+  },
+  {
+   "text": "un",
+   "start": 6.968,
+   "end": 7.096,
+   "emph": false
+  },
+  {
+   "text": "produit",
+   "start": 7.096,
+   "end": 7.352,
+   "emph": false
+  },
+  {
+   "text": "que",
+   "start": 7.352,
+   "end": 7.48,
+   "emph": false
+  },
+  {
+   "text": "j'aime",
+   "start": 7.48,
+   "end": 7.704,
+   "emph": true
+  },
+  {
+   "text": "beaucoup.",
+   "start": 7.704,
+   "end": 8.12,
+   "emph": false
+  },
+  {
+   "text": "C'est",
+   "start": 8.14,
+   "end": 8.39,
+   "emph": false
+  },
+  {
+   "text": "un",
+   "start": 8.39,
+   "end": 8.64,
+   "emph": false
+  },
+  {
+   "text": "skinbooster",
+   "start": 8.64,
+   "end": 9.3,
+   "emph": true
+  },
+  {
+   "text": "qu'on",
+   "start": 9.3,
+   "end": 9.74,
+   "emph": false
+  },
+  {
+   "text": "va",
+   "start": 9.74,
+   "end": 9.96,
+   "emph": false
+  },
+  {
+   "text": "injecter",
+   "start": 9.96,
+   "end": 10.275,
+   "emph": false
+  },
+  {
+   "text": "en",
+   "start": 10.275,
+   "end": 10.38,
+   "emph": false
+  },
+  {
+   "text": "profondeur",
+   "start": 10.38,
+   "end": 11.14,
+   "emph": true
+  },
+  {
+   "text": "pour",
+   "start": 11.2,
+   "end": 11.45,
+   "emph": false
+  },
+  {
+   "text": "une",
+   "start": 11.45,
+   "end": 11.8,
+   "emph": false
+  },
+  {
+   "text": "hydratation",
+   "start": 11.8,
+   "end": 12.531,
+   "emph": true
+  },
+  {
+   "text": "profonde",
+   "start": 12.531,
+   "end": 12.969,
+   "emph": true
+  },
+  {
+   "text": "et",
+   "start": 12.969,
+   "end": 13.152,
+   "emph": false
+  },
+  {
+   "text": "un",
+   "start": 13.152,
+   "end": 13.335,
+   "emph": false
+  },
+  {
+   "text": "effet",
+   "start": 13.335,
+   "end": 13.7,
+   "emph": false
+  },
+  {
+   "text": "lifting.",
+   "start": 13.7,
+   "end": 14.13,
+   "emph": true
+  }
+ ],
+ "cues": {
+  "spanish": 2.48,
+  "rrs": 5.04,
+  "jaime": 7.48,
+  "skinbooster": 8.64,
+  "injecter": 9.96,
+  "profondeur": 10.38,
+  "hydratation": 11.8,
+  "lifting": 13.7
+ },
+ "shotCuts": [
+  4.958,
+  7.083,
+  10.208,
+  12.167
+ ]
+}

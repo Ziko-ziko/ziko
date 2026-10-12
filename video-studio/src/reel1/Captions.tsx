@@ -20,14 +20,17 @@ function buildPages(words: Word[], max: number): Word[][] {
 }
 
 /** Word-by-word captions; the spoken word is highlighted. */
-export const Captions: React.FC = () => {
+export const Captions: React.FC<{ words?: Word[]; until?: number }> = ({
+  words = DATA.words,
+  until = Math.min(M.speechEnd, M.standardises) - 0.05,
+}) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const { captions: c, fonts } = useStyle();
   const t = frame / fps;
-  if (!c.show || t > M.speechEnd - 0.05 || t >= M.standardises - 0.05) return null;
+  if (!c.show || t >= until) return null;
 
-  const pages = buildPages(DATA.words, c.maxWordsPerPage);
+  const pages = buildPages(words, c.maxWordsPerPage);
   const pi = pages.findIndex((p, i) => {
     const next = pages[i + 1];
     return t >= p[0].start - 0.05 && (!next || t < next[0].start - 0.05);
@@ -70,7 +73,7 @@ export const Captions: React.FC = () => {
       }}
     >
       {page.map((w, i) => {
-        const next = page[i + 1] ?? DATA.words[DATA.words.indexOf(w) + 1];
+        const next = page[i + 1] ?? words[words.indexOf(w) + 1];
         const active = t >= w.start && t < (next ? Math.min(next.start, w.end + 0.25) : w.end + 0.25);
         const spoken = t >= w.start;
         const bump = spring({ frame: frame - Math.round(w.start * fps), fps, config: { damping: 12, stiffness: 260, mass: 0.5 } });
