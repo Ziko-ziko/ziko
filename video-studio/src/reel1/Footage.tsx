@@ -2,7 +2,8 @@ import { AbsoluteFill, interpolate, OffthreadVideo, Sequence, staticFile, useCur
 import { DATA, M, shotAt } from "./data";
 
 const FPS = DATA.fps;
-const SRC = staticFile("reel1/source_clean.mp4");
+// 4K upscale of the footage (projects/reel1/make_assets.sh); drawn at 1080x1920 CSS px, sharp when rendering with --scale=2
+const SRC = staticFile("reel1/source_clean_4k.mp4");
 
 const pulse = (t: number, at: number, inS: number, holdS: number, outS: number) =>
   interpolate(t, [at - inS, at, at + holdS, at + holdS + outS], [0, 1, 1, 0], {

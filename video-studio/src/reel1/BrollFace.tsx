@@ -2,7 +2,7 @@ import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } fr
 import { M } from "./data";
 import { FaceArt } from "./FaceArt";
 import { useStyle } from "./style";
-import { GOLD, INK, SANS } from "./theme";
+import { GOLD, INK } from "./theme";
 import { PerCharacterRise } from "./TextAnim";
 
 const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
@@ -33,7 +33,7 @@ const Frame: React.FC<{ from: number; to: number; children: React.ReactNode }> =
         opacity: enter * (1 - exit),
         transform: `scale(${interpolate(enter, [0, 1], [1.12, 1]) * (1 + exit * 0.15)})`,
         filter: `blur(${exit * 14}px)`,
-        fontFamily: SANS,
+        fontFamily: "var(--body-font)",
       }}
     >
       {children}

@@ -1,7 +1,6 @@
 import { interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
 import { DATA, M, type Word } from "./data";
 import { useStyle } from "./style";
-import { SANS } from "./theme";
 import { blurOutUp } from "./TextAnim";
 
 /** Group words into caption pages: up to `max` words / ~18 chars, break after punctuation. */
@@ -24,7 +23,7 @@ function buildPages(words: Word[], max: number): Word[][] {
 export const Captions: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const { captions: c } = useStyle();
+  const { captions: c, fonts } = useStyle();
   const t = frame / fps;
   if (!c.show || t > M.speechEnd - 0.05 || t >= M.standardises - 0.05) return null;
 
@@ -61,7 +60,7 @@ export const Captions: React.FC = () => {
         flexWrap: "wrap",
         justifyContent: "center",
         gap: `${c.fontSize * 0.08}px ${c.fontSize * 0.2}px`,
-        fontFamily: SANS,
+        fontFamily: "var(--body-font)",
         fontWeight: Number(c.fontWeight),
         fontStyle: c.italic ? "italic" : "normal",
         fontSize: c.fontSize,
@@ -83,10 +82,12 @@ export const Captions: React.FC = () => {
         let color = spoken && w.emph ? c.emphasisColor : c.textColor;
         if (active && c.highlightStyle === "box") color = c.highlightTextColor;
         if (active && (c.highlightStyle === "color" || c.highlightStyle === "underline")) color = c.emphasisColor;
+        const titleWord = fonts.emphasisInTitleFont && w.emph;
         return (
           <span
             key={i}
             style={{
+              ...(titleWord ? { fontFamily: "var(--title-font)", fontWeight: "var(--title-weight)" as never, fontStyle: "var(--title-style)" as never, textTransform: "none", fontSize: "1.12em", lineHeight: 1 } : {}),
               position: "relative",
               display: "inline-block",
               padding: `${c.fontSize * 0.02}px ${c.fontSize * 0.17}px ${c.fontSize * 0.07}px`,

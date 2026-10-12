@@ -56,6 +56,12 @@ export const RemotionRoot: React.FC = () => {
         // Edited from Remotion Studio (Props panel -> Save)
         defaultProps={{
           accent: "#ff3fa4",
+          fonts: {
+            body: "Montserrat",
+            title: "Playfair Display",
+            titleItalic: true,
+            emphasisInTitleFont: true,
+          },
           captions: {
             show: true,
             y: 1300,
@@ -82,7 +88,6 @@ export const RemotionRoot: React.FC = () => {
             line2: "a le *même* visage ?",
             y: 150,
             fontSize: 74,
-            fontWeight: "800",
             labelSize: 26,
           },
           feed: { labels: ["MÊMES LÈVRES", "MÊMES POMMETTES", "MÊMES PROFILS"], labelSize: 58, labelY: 640 },
@@ -93,8 +98,6 @@ export const RemotionRoot: React.FC = () => {
             line2: "est *unique.*",
             subtitle: "SUBLIMER, PAS TRANSFORMER",
             titleSize: 88,
-            titleWeight: "800",
-            titleItalic: false,
             subtitleSize: 30,
             y: 360,
           },

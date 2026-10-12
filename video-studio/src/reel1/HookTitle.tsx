@@ -1,6 +1,5 @@
 import { interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
 import { accentText, useStyle } from "./style";
-import { SANS } from "./theme";
 
 /** Opening hook at the top for the first seconds. */
 export const HookTitle: React.FC<{ until: number }> = ({ until }) => {
@@ -25,7 +24,7 @@ export const HookTitle: React.FC<{ until: number }> = ({ until }) => {
           background: "linear-gradient(180deg, rgba(8,6,10,0.85) 0%, rgba(8,6,10,0.55) 45%, rgba(8,6,10,0) 100%)",
         }}
       />
-      <div style={{ position: "absolute", top: h.y, left: 40, right: 40, textAlign: "center", fontFamily: SANS }}>
+      <div style={{ position: "absolute", top: h.y, left: 40, right: 40, textAlign: "center", fontFamily: "var(--body-font)" }}>
         {h.label && (
           <div
             style={{
@@ -50,7 +49,7 @@ export const HookTitle: React.FC<{ until: number }> = ({ until }) => {
           <div key={i} style={{ overflow: "hidden" }}>
             <div
               style={{
-                fontWeight: Number(h.fontWeight),
+                fontFamily: "var(--title-font)", fontWeight: "var(--title-weight)" as never, fontStyle: "var(--title-style)" as never,
                 fontSize: h.fontSize,
                 lineHeight: 1.14,
                 color: "#fff",

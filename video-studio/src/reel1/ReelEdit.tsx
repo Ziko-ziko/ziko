@@ -1,5 +1,5 @@
 import { AbsoluteFill, Audio, interpolate, Sequence, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
-import "./theme";
+import { ensureFont, hasItalic, heaviestWeight } from "../fonts";
 import { BrollFeed } from "./BrollFeed";
 import { BrollStandard } from "./BrollStandard";
 import { Captions } from "./Captions";
@@ -41,9 +41,18 @@ const ProgressBar: React.FC<{ color: string }> = ({ color }) => {
 export const ReelEdit: React.FC<ReelStyle> = (style) => {
   const { fps, durationInFrames } = useVideoConfig();
   const speechEndF = Math.round(M.speechEnd * fps);
+  const { body, title, titleItalic } = style.fonts;
+  ensureFont(body);
+  ensureFont(title);
+  const fontVars = {
+    "--body-font": `"${body}"`,
+    "--title-font": `"${title}"`,
+    "--title-weight": String(heaviestWeight(title)),
+    "--title-style": titleItalic && hasItalic(title) ? "italic" : "normal",
+  } as React.CSSProperties;
   return (
     <StyleContext.Provider value={style}>
-    <AbsoluteFill style={{ background: "#000" }}>
+    <AbsoluteFill style={{ background: "#000", ...fontVars }}>
       <Footage />
       <BrollAnalysis from={M.globalite - 0.9} to={M.unique + 0.55} />
       <BrollHarmony from={M.correction - 0.3} to={M.harmoniser + 1.25} />

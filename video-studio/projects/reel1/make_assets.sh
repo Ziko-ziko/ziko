@@ -13,6 +13,10 @@ ffmpeg -v error -y -i "$SRC" -map 0:v -map 0:a \
   -af "highpass=f=80,afftdn=nf=-25,acompressor=threshold=-20dB:ratio=3:attack=5:release=80,loudnorm=I=-14:TP=-1.5:LRA=7" \
   -c:v copy -c:a aac -b:a 256k -ar 48000 -movflags +faststart $P/source_clean.mp4
 
+# 4K version of the footage (Lanczos upscale + light luma sharpening, colors untouched)
+ffmpeg -v error -y -i $P/source_clean.mp4 -vf "scale=2160:3840:flags=lanczos,unsharp=5:5:0.45:5:5:0" \
+  -c:v libx264 -preset medium -crf 12 -g 12 -pix_fmt yuv420p -c:a copy -movflags +faststart $P/source_clean_4k.mp4
+
 # SFX
 sox -n -r 48000 -c 2 $P/whoosh.wav synth 0.55 pinknoise band -n 1500 1200 fade q 0.22 0.55 0.3 gain -6
 sox -n -r 48000 -c 2 $P/pop.wav synth 0.08 sine 1100:320 fade 0 0.08 0.06 gain -4

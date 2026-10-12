@@ -1,12 +1,21 @@
 import { zColor } from "@remotion/zod-types";
 import { createContext, useContext } from "react";
 import { z } from "zod";
+import { FONT_FAMILIES } from "../fonts";
 
 // Everything here shows up as editable controls in Remotion Studio (right panel → Props).
 const weight = z.enum(["400", "500", "600", "700", "800", "900"]);
 
+const family = z.enum(FONT_FAMILIES);
+
 export const reelSchema = z.object({
   accent: zColor().describe("Main color (highlights, stickers, HUD, progress bar)"),
+  fonts: z.object({
+    body: family.describe("Captions, labels, small text"),
+    title: family.describe("End card, stamp, feed stickers, key words"),
+    titleItalic: z.boolean().describe("Use the italic of the title font when it has one"),
+    emphasisInTitleFont: z.boolean().describe("Key words in captions use the title font"),
+  }),
   captions: z.object({
     show: z.boolean(),
     y: z.number().min(200).max(1800).step(10).describe("Vertical position (px from top)"),
@@ -33,7 +42,6 @@ export const reelSchema = z.object({
     line2: z.string().describe("Use *word* to color a word with the accent"),
     y: z.number().min(40).max(1600).step(10),
     fontSize: z.number().min(30).max(160).step(1),
-    fontWeight: weight,
     labelSize: z.number().min(14).max(60).step(1),
   }),
   feed: z.object({
@@ -53,8 +61,6 @@ export const reelSchema = z.object({
     line2: z.string().describe("Use *word* to color a word with the accent"),
     subtitle: z.string(),
     titleSize: z.number().min(30).max(160).step(1),
-    titleWeight: weight,
-    titleItalic: z.boolean(),
     subtitleSize: z.number().min(14).max(70).step(1),
     y: z.number().min(0).max(1200).step(10).describe("Top of the face drawing"),
   }),

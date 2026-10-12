@@ -1,7 +1,7 @@
 import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
 import { FaceArt } from "./FaceArt";
 import { accentText, useStyle } from "./style";
-import { GOLD, INK, SANS } from "./theme";
+import { GOLD, INK } from "./theme";
 import { LineByLineSlide, PerCharacterRise } from "./TextAnim";
 
 export const EndCard: React.FC<{ from: number }> = ({ from }) => {
@@ -21,7 +21,7 @@ export const EndCard: React.FC<{ from: number }> = ({ from }) => {
         background: `radial-gradient(circle at 50% 38%, ${accent}38 0%, ${INK} 62%)`,
         opacity: bg,
         alignItems: "center",
-        fontFamily: SANS,
+        fontFamily: "var(--body-font)",
       }}
     >
       <div
@@ -36,8 +36,7 @@ export const EndCard: React.FC<{ from: number }> = ({ from }) => {
       <div
         style={{
           marginTop: 70,
-          fontWeight: Number(e.titleWeight),
-          fontStyle: e.titleItalic ? "italic" : "normal",
+          fontFamily: "var(--title-font)", fontWeight: "var(--title-weight)" as never, fontStyle: "var(--title-style)" as never,
           fontSize: e.titleSize,
           color: "#fff",
           textAlign: "center",

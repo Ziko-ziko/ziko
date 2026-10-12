@@ -1,7 +1,7 @@
 import { AbsoluteFill, interpolate, random, spring, useCurrentFrame, useVideoConfig } from "remotion";
 import { FaceArt } from "./FaceArt";
 import { useStyle } from "./style";
-import { INK, SANS } from "./theme";
+import { INK } from "./theme";
 
 /** "Visages standardisés": a factory grid of identical faces + stamp. */
 export const BrollStandard: React.FC<{ from: number; stampAt: number; to: number }> = ({ from, stampAt, to }) => {
@@ -49,8 +49,7 @@ export const BrollStandard: React.FC<{ from: number; stampAt: number; to: number
         <AbsoluteFill style={{ justifyContent: "center", alignItems: "center" }}>
           <div
             style={{
-              fontFamily: SANS,
-              fontWeight: 900,
+              fontFamily: "var(--title-font)", fontWeight: "var(--title-weight)" as never, fontStyle: "var(--title-style)" as never,
               fontSize: st.fontSize,
               color: PINK,
               border: `10px solid ${PINK}`,

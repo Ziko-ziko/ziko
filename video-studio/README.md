@@ -69,7 +69,10 @@ python3 projects/reel1/export_srt.py           # subtitles .srt
 4. Animations dyal text: `captions.enterAnimation` (perCharacterRise / lineByLineSlide / pop) w `captions.exitAnimation` (blurOutUp / none). Size dyal l-wjah f B-roll: `hud.brollFaceSize`.
 5. F text dyal `hook.line2` w `endCard.line2`, `*kelma*` katwelli b lon `accent`.
 
-Font: **Montserrat** (400 → 900, normal + italic) f `public/fonts/`.
+Fonts: 19 font (Google Fonts mn l-liste dyal Canva pairings) f `public/fonts/` — Abril Fatface, Biryani, Cinzel, Josefin Sans, League Gothic, League Spartan, Montserrat, Open Sans, Oswald, Playfair Display, Poppins, Quicksand, Raleway, Roboto Slab, Sacramento, Shrikhand, Six Caps, Vidaloka, Yellowtail.
+Khtar `fonts.body` (subtitles) w `fonts.title` (kalimat mohimma, stickers, stamp, end card) f Props. Bach tzid font jdid: `npm i @fontsource/<smiya>` w `python3 scripts/collect_fonts.py`.
+
+4K: `npm run render:reel1-4k` (footage 4K f `public/reel1/source_clean_4k.mp4`).
 
 - Bach tbeddel text dyal subtitles wla les takes: `CHUNKS` w `SEGMENTS` f `projects/reel1/build_data.py`.
 - Effects: `src/reel1/` (BrollFeed, FaceHUD, BrollStandard, Captions, EndCard...).

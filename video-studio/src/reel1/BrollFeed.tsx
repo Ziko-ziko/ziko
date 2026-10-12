@@ -2,7 +2,7 @@ import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } fr
 import { M } from "./data";
 import { FaceArt } from "./FaceArt";
 import { useStyle } from "./style";
-import { INK, SANS } from "./theme";
+import { INK } from "./theme";
 
 const COLS = 3;
 const CARD_W = 320;
@@ -68,7 +68,7 @@ export const BrollFeed: React.FC<{ from: number; to: number }> = ({ from, to }) 
               }}
             >
               <FaceArt size={190} lips={lips} cheeks={cheeks} outline={outline} accent={PINK} />
-              <div style={{ marginTop: 18, fontFamily: SANS, fontWeight: 800, fontSize: 28, color: "rgba(255,255,255,0.8)" }}>
+              <div style={{ marginTop: 18, fontFamily: "var(--body-font)", fontWeight: 800, fontSize: 28, color: "rgba(255,255,255,0.8)" }}>
                 <span style={{ color: PINK }}>♥</span> 24,5k
               </div>
             </div>
@@ -88,7 +88,7 @@ export const BrollFeed: React.FC<{ from: number; to: number }> = ({ from, to }) 
           justifyContent: "center",
           gap: 50,
           paddingTop: 78,
-          fontFamily: SANS,
+          fontFamily: "var(--body-font)",
           fontWeight: 800,
           fontSize: 36,
         }}
@@ -117,8 +117,7 @@ export const BrollFeed: React.FC<{ from: number; to: number }> = ({ from, to }) 
                 display: "inline-block",
                 background: i === labels.length - 1 ? PINK : "#fff",
                 color: i === labels.length - 1 ? "#fff" : INK,
-                fontFamily: SANS,
-                fontWeight: 900,
+                fontFamily: "var(--title-font)", fontWeight: "var(--title-weight)" as never, fontStyle: "var(--title-style)" as never,
                 fontSize: feed.labelSize,
                 padding: `${feed.labelSize * 0.24}px ${feed.labelSize * 0.6}px`,
                 borderRadius: 18,
