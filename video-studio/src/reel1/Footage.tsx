@@ -1,9 +1,11 @@
-import { AbsoluteFill, interpolate, OffthreadVideo, Sequence, staticFile, useCurrentFrame } from "remotion";
+import { AbsoluteFill, Audio, interpolate, OffthreadVideo, Sequence, staticFile, useCurrentFrame } from "remotion";
 import { DATA, M, shotAt } from "./data";
 
 const FPS = DATA.fps;
 // 4K upscale of the footage (projects/reel1/make_assets.sh); drawn at 1080x1920 CSS px, sharp when rendering with --scale=2
 const SRC = staticFile("reel1/source_clean_4k.mp4");
+// AI-denoised + EQ'd voice (scripts/enhance_voice.py), same timeline as the source video
+const VOICE = staticFile("reel1/voice_enhanced.wav");
 
 const pulse = (t: number, at: number, inS: number, holdS: number, outS: number) =>
   interpolate(t, [at - inS, at, at + holdS, at + holdS + outS], [0, 1, 1, 0], {
@@ -40,10 +42,10 @@ export const Footage: React.FC = () => {
           const dur = to - from;
           return (
             <Sequence key={i} from={from} durationInFrames={dur} layout="none">
-              <OffthreadVideo
-                src={SRC}
+              <OffthreadVideo src={SRC} trimBefore={Math.round(s.srcStart * FPS)} style={{ width: 1080, height: 1920 }} muted />
+              <Audio
+                src={VOICE}
                 trimBefore={Math.round(s.srcStart * FPS)}
-                style={{ width: 1080, height: 1920 }}
                 volume={(f) => interpolate(f, [0, 3, dur - 3, dur], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })}
               />
             </Sequence>

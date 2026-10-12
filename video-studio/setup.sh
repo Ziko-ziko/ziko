@@ -36,4 +36,7 @@ fi
 [ -f models/silero_vad.onnx ] || curl -L -o models/silero_vad.onnx \
   https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/silero_vad.onnx
 
+[ -f models/dpdfnet2_48khz_hr.onnx ] || curl -L -o models/dpdfnet2_48khz_hr.onnx \
+  https://github.com/k2-fsa/sherpa-onnx/releases/download/speech-enhancement-models/dpdfnet2_48khz_hr.onnx
+
 echo "==> Done. Try:  npm run render:intro   or   npm run studio"

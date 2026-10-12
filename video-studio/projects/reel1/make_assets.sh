@@ -17,6 +17,9 @@ ffmpeg -v error -y -i "$SRC" -map 0:v -map 0:a \
 ffmpeg -v error -y -i $P/source_clean.mp4 -vf "scale=2160:3840:flags=lanczos,unsharp=5:5:0.45:5:5:0" \
   -c:v libx264 -preset medium -crf 12 -g 12 -pix_fmt yuv420p -c:a copy -movflags +faststart $P/source_clean_4k.mp4
 
+# Enhanced voice (AI denoise + EQ/de-ess/compression), used instead of the camera audio
+.venv/bin/python scripts/enhance_voice.py "$SRC" $P/voice_enhanced.wav
+
 # SFX
 sox -n -r 48000 -c 2 $P/whoosh.wav synth 0.55 pinknoise band -n 1500 1200 fade q 0.22 0.55 0.3 gain -6
 sox -n -r 48000 -c 2 $P/pop.wav synth 0.08 sine 1100:320 fade 0 0.08 0.06 gain -4
