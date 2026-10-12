@@ -6,7 +6,6 @@ Config.setVideoImageFormat("jpeg");
 Config.setJpegQuality(98);
 // Keeps 4K frame extraction from running out of memory
 Config.setOffthreadVideoCacheSizeInBytes(1_500_000_000);
-Config.setOffthreadVideoThreads(2);
 Config.setOverwriteOutput(true);
 Config.setConcurrency(null);
 
