@@ -8,11 +8,10 @@ P=public/reel1
 TMP=$(mktemp -d)
 mkdir -p $P
 
-# Color grade + voice cleanup (high-pass, denoise, compression, -14 LUFS)
+# Original colors (video stream copied untouched) + voice cleanup (high-pass, denoise, compression, -14 LUFS)
 ffmpeg -v error -y -i "$SRC" -map 0:v -map 0:a \
-  -vf "eq=contrast=1.06:saturation=1.12:gamma=0.98,colorbalance=rs=0.02:bs=-0.025:rh=0.015:bh=-0.02,unsharp=5:5:0.35,vignette=PI/6" \
   -af "highpass=f=80,afftdn=nf=-25,acompressor=threshold=-20dB:ratio=3:attack=5:release=80,loudnorm=I=-14:TP=-1.5:LRA=7" \
-  -c:v libx264 -preset slow -crf 15 -g 12 -pix_fmt yuv420p -c:a aac -b:a 256k -ar 48000 -movflags +faststart $P/source_clean.mp4
+  -c:v copy -c:a aac -b:a 256k -ar 48000 -movflags +faststart $P/source_clean.mp4
 
 # SFX
 sox -n -r 48000 -c 2 $P/whoosh.wav synth 0.55 pinknoise band -n 1500 1200 fade q 0.22 0.55 0.3 gain -6
