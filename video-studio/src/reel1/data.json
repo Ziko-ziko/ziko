@@ -69,97 +69,97 @@
   {
    "text": "Aujourd'hui,",
    "start": 2.9,
-   "end": 3.5,
+   "end": 3.565,
    "emph": false
   },
   {
    "text": "avec",
-   "start": 3.5,
-   "end": 3.834,
+   "start": 3.565,
+   "end": 3.935,
    "emph": false
   },
   {
    "text": "les",
-   "start": 3.834,
-   "end": 4.001,
+   "start": 3.935,
+   "end": 4.12,
    "emph": false
   },
   {
    "text": "réseaux",
-   "start": 4.001,
-   "end": 4.334,
+   "start": 4.12,
+   "end": 4.49,
    "emph": true
   },
   {
    "text": "sociaux,",
-   "start": 4.334,
-   "end": 4.768,
+   "start": 4.49,
+   "end": 4.97,
    "emph": true
   },
   {
    "text": "on",
-   "start": 4.768,
-   "end": 4.935,
+   "start": 4.97,
+   "end": 5.155,
    "emph": false
   },
   {
    "text": "voit",
-   "start": 4.935,
-   "end": 5.101,
+   "start": 5.155,
+   "end": 5.34,
    "emph": false
   },
   {
    "text": "les",
-   "start": 5.101,
-   "end": 5.268,
+   "start": 5.34,
+   "end": 5.438,
    "emph": false
   },
   {
    "text": "mêmes",
-   "start": 5.268,
-   "end": 5.602,
+   "start": 5.438,
+   "end": 5.635,
    "emph": false
   },
   {
    "text": "lèvres,",
-   "start": 5.602,
-   "end": 6.035,
+   "start": 5.635,
+   "end": 5.89,
    "emph": true
   },
   {
    "text": "les",
-   "start": 6.035,
-   "end": 6.202,
+   "start": 5.9,
+   "end": 6.08,
    "emph": false
   },
   {
    "text": "mêmes",
-   "start": 6.202,
-   "end": 6.536,
+   "start": 6.08,
+   "end": 6.439,
    "emph": false
   },
   {
    "text": "pommettes,",
-   "start": 6.536,
-   "end": 7.136,
+   "start": 6.439,
+   "end": 7.085,
    "emph": true
   },
   {
    "text": "les",
-   "start": 7.136,
-   "end": 7.303,
+   "start": 7.085,
+   "end": 7.264,
    "emph": false
   },
   {
    "text": "mêmes",
-   "start": 7.303,
-   "end": 7.636,
+   "start": 7.264,
+   "end": 7.623,
    "emph": false
   },
   {
    "text": "profils.",
-   "start": 7.636,
-   "end": 8.07,
+   "start": 7.623,
+   "end": 8.09,
    "emph": true
   },
   {
@@ -892,12 +892,12 @@
   ]
  ],
  "markers": {
-  "brollFeedIn": 2.86,
+  "brollFeedIn": 5.34,
   "brollFeedOut": 8.18,
-  "levres": 5.602,
-  "pommettes": 6.536,
-  "profils": 7.636,
-  "reseaux": 4.001,
+  "levres": 5.635,
+  "pommettes": 6.439,
+  "profils": 7.623,
+  "reseaux": 4.12,
   "reconnaitre": 13.024,
   "globalite": 19.222,
   "proportions": 20.073,
@@ -919,6 +919,12 @@
   ],
   [
    2.86,
+   5.34,
+   1.12,
+   1.16
+  ],
+  [
+   5.34,
    8.18,
    1.0,
    1.0

@@ -21,7 +21,9 @@ SEGMENTS = [(2.38, 18.70), (30.52, 37.32), (47.78, 58.20)]
 # Caption text per speech chunk (source times from scripts/transcribe.py, text corrected by hand)
 CHUNKS = [
     (2.40, 5.24, "Chaque visage mérite de garder sa propre identité."),
-    (5.24, 10.56, "Aujourd'hui, avec les réseaux sociaux, on voit les mêmes lèvres, les mêmes pommettes, les mêmes profils."),
+    (5.24, 7.72, "Aujourd'hui, avec les réseaux sociaux, on voit"),
+    (7.72, 8.28, "les mêmes lèvres,"),  # boundaries checked by ear-level ASR on short windows
+    (8.28, 10.56, "les mêmes pommettes, les mêmes profils."),
     (10.56, 12.67, "Il y a beaucoup de gens qui ont peur de le faire,"),
     (12.76, 16.22, "par peur d'être transformé ou tout simplement de ne plus se reconnaître."),
     (16.22, 18.68, "Justement, c'est ça le message que je veux transmettre."),
@@ -115,7 +117,7 @@ def main():
         off += b - a
 
     markers = {
-        "brollFeedIn": to_out(5.24), "brollFeedOut": to_out(10.56),
+        "brollFeedIn": to_out(7.72), "brollFeedOut": to_out(10.56),  # starts on "les mêmes lèvres"
         "levres": word_time("lèvres"), "pommettes": word_time("pommettes"), "profils": word_time("profils"),
         "reseaux": word_time("réseaux"),
         "reconnaitre": word_time("reconnaître"),
@@ -131,7 +133,8 @@ def main():
     cut = lambda t: round(to_out(t), 3)
     shots = [
         [0, cut(5.24), 1.28, 1.34],
-        [cut(5.24), cut(10.56), 1.0, 1.0],          # under B-roll feed
+        [cut(5.24), cut(7.72), 1.12, 1.16],
+        [cut(7.72), cut(10.56), 1.0, 1.0],          # under B-roll feed
         [cut(10.56), cut(12.76), 1.0, 1.04],
         [cut(12.76), cut(16.22), 1.2, 1.25],
         [cut(16.22), cut(18.70), 1.06, 1.12],
