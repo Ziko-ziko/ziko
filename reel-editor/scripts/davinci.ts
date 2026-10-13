@@ -86,6 +86,10 @@ const wordEntries = wordsOf(p.captions)
   .flatMap(chunksOf)
   .map((ch) => ({ ...span(ch[0].start, ch[ch.length - 1].end + 0.12), text: ch.map((w) => w.text).join(" ") }))
   .filter((e): e is { a: number; b: number; text: string } => e.a !== undefined && e.a !== null);
+// subtitle tracks don't allow overlaps: end each entry where the next one starts
+for (const list of [lineEntries, wordEntries]) {
+  for (let i = 0; i < list.length - 1; i++) list[i].b = Math.min(list[i].b, list[i + 1].a);
+}
 fs.writeFileSync(path.join(outDir, "subtitles-lines.srt"), srt(lineEntries));
 fs.writeFileSync(path.join(outDir, "subtitles-words.srt"), srt(wordEntries));
 
