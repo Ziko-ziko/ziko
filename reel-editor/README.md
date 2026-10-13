@@ -13,7 +13,13 @@ npm install
 npm run studio        # opens Remotion Studio: timeline + live props editor
 npm run render        # renders out/reel.mp4 with the current defaultProps
 npm run build:editor  # bundles the web timeline editor (editor/) into editor/dist/editor.js
+npm run export:davinci [-- settings.json]   # DaVinci Resolve hand-off in out/davinci/
 ```
+
+`export:davinci` writes every animation layer as its own transparent ProRes 4444 file (subtitles, icons,
+B-roll, title, flash), `1-camera.mp4` (the moving video, no grade), `timeline.fcpxml` (the cuts with zoom,
+pan and rotation as transform keyframes), `subtitles-lines.srt` / `subtitles-words.srt`, and the three
+colour grades as `.cube` LUTs. It needs Python 3 with Pillow and numpy for the LUTs.
 
 To render with settings copied from the web editor ("نسخ الإعدادات"), paste them into `defaultReel` in `src/data.ts`, or pass them directly:
 

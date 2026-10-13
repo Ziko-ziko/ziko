@@ -31,7 +31,7 @@ export const ReelEdit: React.FC<ReelProps> = (props) => {
     transformOrigin: `50% ${props.anchorY * 100}%`,
   };
 
-  const videos = (isGlow: boolean) =>
+  const videos = (isGlow: boolean, plain = false) =>
     clips.map((c, i) => (
       <Sequence key={i} from={Math.round(c.outStart * fps)} durationInFrames={Math.max(Math.round((c.to - c.from) * fps), 1)} premountFor={fps}>
         <OffthreadVideo
@@ -56,7 +56,7 @@ export const ReelEdit: React.FC<ReelProps> = (props) => {
                   width: "100%",
                   height: "100%",
                   objectFit: "cover",
-                  filter: `brightness(${1 + f * 0.45})${motionBlur > 0.3 ? ` blur(${motionBlur}px)` : ""}`,
+                  filter: `${plain ? "" : `brightness(${1 + f * 0.45})`}${motionBlur > 0.3 ? ` blur(${motionBlur}px)` : ""}` || undefined,
                 }
           }
         />
@@ -72,6 +72,52 @@ export const ReelEdit: React.FC<ReelProps> = (props) => {
   const activeAnalysis = broll.find(({ b, at }) => b.kind === "analysis" && T >= at && T < at + b.dur);
 
   const icons = props.iconsOn ? props.icons.map((ic, i) => ({ ...ic, i })).filter((ic) => s >= ic.t && s < ic.t + iconShow(ic)) : [];
+
+  const L = props.layer ?? "full";
+
+  if (L === "broll") {
+    // full-screen b-roll plus the face-scan overlay (which follows the camera move)
+    return (
+      <AbsoluteFill style={{ overflow: "hidden" }}>
+        <div style={layer}>{activeAnalysis ? <AnalysisOverlay local={T - activeAnalysis.at} dur={activeAnalysis.b.dur} /> : null}</div>
+        {broll
+          .filter(({ b }) => b.kind !== "analysis")
+          .map(({ b, at }, i) => (
+            <Sequence key={i} from={Math.round(at * fps)} durationInFrames={Math.max(Math.round(b.dur * fps), 1)} premountFor={fps}>
+              <BrollFull item={b} local={T - at} m={props.motion.broll} />
+            </Sequence>
+          ))}
+      </AbsoluteFill>
+    );
+  }
+  if (L === "flash") {
+    return (
+      <AbsoluteFill>
+        {f > 0.01 ? (
+          <AbsoluteFill style={{ background: "radial-gradient(circle at 50% 35%, #ffffff 0%, #fff4fa 45%, #ffe1ef 100%)", opacity: f * 0.6 }} />
+        ) : null}
+      </AbsoluteFill>
+    );
+  }
+  if (L === "captions" || L === "icons" || L === "hook") {
+    return (
+      <AbsoluteFill style={{ overflow: "hidden" }}>
+        {L === "icons"
+          ? icons.map((ic) => <IconBadge key={ic.i} ic={ic} local={s - ic.t} side={ic.i % 2 === 0 ? "right" : "left"} m={props.motion.icon} />)
+          : null}
+        {L === "hook" ? <Hook p={props} s={s} /> : null}
+        {L === "captions" && props.captionsOn ? <Captions p={props} s={s} /> : null}
+      </AbsoluteFill>
+    );
+  }
+  if (L === "camera") {
+    // the moving video only: zoom / pan / rotation / motion blur, no grade, no glow, no overlays
+    return (
+      <AbsoluteFill style={{ backgroundColor: "black", overflow: "hidden" }}>
+        <div style={layer}>{videos(false, true)}</div>
+      </AbsoluteFill>
+    );
+  }
 
   return (
     <AbsoluteFill style={{ backgroundColor: "black", overflow: "hidden" }}>

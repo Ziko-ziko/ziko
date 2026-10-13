@@ -5,6 +5,7 @@
   "scripts": {
     "studio": "remotion studio",
     "render": "remotion render ReelEdit out/reel.mp4",
+    "export:davinci": "node scripts/export-davinci.mjs",
     "build:editor": "esbuild editor/main.tsx --bundle --minify --format=iife --jsx=automatic --define:process.env.NODE_ENV=\\\"production\\\" --outfile=editor/dist/editor.js"
   },
   "dependencies": {

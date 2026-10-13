@@ -1,5 +1,6 @@
 import React from "react";
 import { Composition, continueRender, delayRender, staticFile } from "remotion";
+import { GradeLUT } from "./GradeLUT";
 import { ReelEdit } from "./ReelEdit";
 import { defaultReel } from "./data";
 import { FPS, durationFrames, reelSchema } from "./schema";
@@ -20,7 +21,8 @@ Promise.all(
 ).then(() => continueRender(fontHandle));
 
 export const RemotionRoot: React.FC = () => (
-  <Composition
+  <>
+    <Composition
     id="ReelEdit"
     component={ReelEdit}
     schema={reelSchema}
@@ -31,4 +33,6 @@ export const RemotionRoot: React.FC = () => (
     calculateMetadata={({ props }) => ({ durationInFrames: durationFrames(props) })}
     defaultProps={{ ...defaultReel, src: staticFile("reel.mp4") }}
   />
+    <Composition id="GradeLUT" component={GradeLUT} fps={FPS} width={216} height={216} durationInFrames={1} defaultProps={{ grade: "teal" as const }} />
+  </>
 );

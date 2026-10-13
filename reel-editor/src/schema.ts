@@ -27,6 +27,11 @@ export type BrollKind = (typeof BROLL_KINDS)[number];
 
 export const CAPTION_STYLES = ["pop", "karaoke", "box"] as const;
 
+// "full" = the finished reel. The others render one element on a transparent background
+// (or, for "camera", the moving video without overlays or grade) for editing in DaVinci / Premiere.
+export const LAYER_IDS = ["full", "camera", "captions", "icons", "broll", "hook", "flash"] as const;
+export type LayerId = (typeof LAYER_IDS)[number];
+
 export const TRACK_IDS = ["zoom", "x", "y", "rot", "flash", "glow"] as const;
 export type TrackId = (typeof TRACK_IDS)[number];
 
@@ -39,6 +44,7 @@ const anim = <T extends z.ZodRawShape>(extra: T) => z.object({ dur: z.number().m
 // `zooms` has one entry per zoom segment of the edited reel (user cuts + automatic cuts at take joins).
 export const reelSchema = z.object({
   src: z.string(),
+  layer: z.enum(LAYER_IDS).optional(),
   takes: z.array(z.object({ from: z.number(), to: z.number(), label: z.string(), on: z.boolean() })),
   cuts: z.array(z.number().min(0)),
   zooms: z.array(z.number().min(1).max(1.6)),

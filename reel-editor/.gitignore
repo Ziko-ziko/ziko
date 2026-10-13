@@ -1,3 +1,4 @@
 node_modules
 out
 editor/dist
+scripts/dist
