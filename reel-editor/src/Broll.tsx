@@ -1,6 +1,7 @@
 import React from "react";
 import { AbsoluteFill, OffthreadVideo, interpolate, spring } from "remotion";
 import { CAPTION_FONT } from "./Captions";
+import { lerp, prog } from "./motion";
 import { FPS, ReelProps } from "./schema";
 
 type Item = ReelProps["broll"][number];
@@ -22,20 +23,22 @@ const FaceCard: React.FC<{ tone: string; lips: string; glow?: number; size: numb
   </svg>
 );
 
-const enterExit = (local: number, dur: number) => {
-  const inK = spring({ frame: local * FPS, fps: FPS, config: { damping: 16, stiffness: 180 } });
-  const outK = interpolate(local, [dur - 0.22, dur], [1, 0], clamp);
+type BrollMotion = ReelProps["motion"]["broll"];
+
+const enterExit = (local: number, dur: number, m: BrollMotion) => {
+  const inK = prog(local, m.dur, m.ease);
+  const outK = interpolate(local, [dur - m.outDur, dur], [1, 0], clamp);
   return { inK, outK };
 };
 
-const Backdrop: React.FC<{ children: React.ReactNode; local: number; dur: number }> = ({ children, local, dur }) => {
-  const { inK, outK } = enterExit(local, dur);
+const Backdrop: React.FC<{ children: React.ReactNode; local: number; dur: number; m: BrollMotion }> = ({ children, local, dur, m }) => {
+  const { inK, outK } = enterExit(local, dur, m);
   return (
     <AbsoluteFill
       style={{
         background: `radial-gradient(ellipse at 50% 35%, #173a3d 0%, #0b1416 60%, #06090a 100%)`,
-        opacity: Math.min(inK * 1.4, 1) * outK,
-        transform: `scale(${1.12 - 0.12 * inK})`,
+        opacity: Math.min(Math.max(inK, 0) * 1.4, 1) * outK,
+        transform: `scale(${lerp(m.fromScale, 1, inK)})`,
         overflow: "hidden",
       }}
     >
@@ -67,14 +70,14 @@ const BigLabel: React.FC<{ top: number; children: React.ReactNode; k: number; co
 );
 
 /** "Les mêmes lèvres / pommettes / profils": a grid of identical faces. */
-const Clones: React.FC<{ local: number; dur: number }> = ({ local, dur }) => {
+const Clones: React.FC<{ local: number; dur: number; m: BrollMotion }> = ({ local, dur, m }) => {
   const words = ["LÈVRES", "POMMETTES", "PROFILS"];
   const phase = Math.min(Math.floor((local / dur) * 3), 2);
   const phaseLocal = local - (phase * dur) / 3;
   const wK = spring({ frame: phaseLocal * FPS, fps: FPS, config: { damping: 12, stiffness: 220 } });
   const titleK = spring({ frame: local * FPS, fps: FPS, config: { damping: 14 } });
   return (
-    <Backdrop local={local} dur={dur}>
+    <Backdrop local={local} dur={dur} m={m}>
       <BigLabel top={210} k={titleK} size={80} color="rgba(255,255,255,.75)">
         LES MÊMES
       </BigLabel>
@@ -112,12 +115,12 @@ const Clones: React.FC<{ local: number; dur: number }> = ({ local, dur }) => {
 };
 
 /** "Ne pas créer des visages standardisés": one face breaks out of the grid. */
-const Unique: React.FC<{ local: number; dur: number }> = ({ local, dur }) => {
+const Unique: React.FC<{ local: number; dur: number; m: BrollMotion }> = ({ local, dur, m }) => {
   const reveal = interpolate(local, [0.9, 1.3], [0, 1], clamp);
   const revealK = spring({ frame: (local - 0.9) * FPS, fps: FPS, config: { damping: 10, stiffness: 160 } });
   const titleK = spring({ frame: local * FPS, fps: FPS, config: { damping: 14 } });
   return (
-    <Backdrop local={local} dur={dur}>
+    <Backdrop local={local} dur={dur} m={m}>
       <BigLabel top={230} k={titleK} size={92} color={reveal > 0.5 ? "rgba(255,255,255,.35)" : "#fff"}>
         <span style={{ textDecoration: reveal > 0.5 ? `line-through ${PINK} 10px` : "none" }}>STANDARDISÉS</span>
       </BigLabel>
@@ -210,13 +213,13 @@ export const AnalysisOverlay: React.FC<{ local: number; dur: number }> = ({ loca
 };
 
 /** Full-screen b-roll layer (everything except the face overlay). */
-export const BrollFull: React.FC<{ item: Item; local: number }> = ({ item, local }) => {
-  if (item.kind === "clones") return <Clones local={local} dur={item.dur} />;
-  if (item.kind === "unique") return <Unique local={local} dur={item.dur} />;
+export const BrollFull: React.FC<{ item: Item; local: number; m: BrollMotion }> = ({ item, local, m }) => {
+  if (item.kind === "clones") return <Clones local={local} dur={item.dur} m={m} />;
+  if (item.kind === "unique") return <Unique local={local} dur={item.dur} m={m} />;
   if (item.kind === "user" && item.src) {
-    const { inK, outK } = enterExit(local, item.dur);
+    const { inK, outK } = enterExit(local, item.dur, m);
     return (
-      <AbsoluteFill style={{ opacity: Math.min(inK * 1.4, 1) * outK, transform: `scale(${1.1 - 0.1 * inK})`, background: "#000" }}>
+      <AbsoluteFill style={{ opacity: Math.min(Math.max(inK, 0) * 1.4, 1) * outK, transform: `scale(${lerp(m.fromScale, 1, inK)})`, background: "#000" }}>
         <OffthreadVideo src={item.src} muted style={{ width: "100%", height: "100%", objectFit: "cover" }} />
       </AbsoluteFill>
     );

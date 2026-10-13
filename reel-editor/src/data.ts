@@ -60,6 +60,16 @@ export const defaultReel: ReelProps = {
     { t: 50.5, icon: "heart", label: "harmoniser" },
     { t: 54.9, icon: "sparkle", label: "mettre en valeur" },
   ],
+  keys: { zoom: [], x: [], y: [], rot: [], flash: [], glow: [] },
+  motion: {
+    transition: { dur: 0.32, ease: [0.42, 0, 0.58, 1] },
+    caption: { dur: 0.22, ease: [0.34, 1.56, 0.64, 1], fromScale: 0.75, fromY: 40, fromRot: 0, fromBlur: 0 },
+    word: { dur: 0.16, ease: [0.34, 1.56, 0.64, 1], scale: 0.12, lift: 0 },
+    icon: { dur: 0.45, ease: [0.34, 1.56, 0.64, 1], fromScale: 0, fromRot: 25, outDur: 0.25, float: 6 },
+    broll: { dur: 0.3, ease: [0.16, 1, 0.3, 1], fromScale: 1.12, outDur: 0.22 },
+    hook: { dur: 0.4, ease: [0.34, 1.56, 0.64, 1], stagger: 0.04, fromY: 80 },
+    flash: { dur: 0.35, ease: [0.16, 1, 0.3, 1], attack: 0.06 },
+  },
   brollOn: true,
   broll: [
     { t: 7.75, dur: 2.6, kind: "clones" },

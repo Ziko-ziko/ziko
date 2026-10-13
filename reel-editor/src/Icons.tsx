@@ -1,6 +1,7 @@
 import React from "react";
-import { interpolate, spring } from "remotion";
-import { FPS, IconId } from "./schema";
+import { interpolate } from "remotion";
+import { lerp, prog } from "./motion";
+import { IconId, ReelProps } from "./schema";
 
 // Line icons on a 48×48 grid. Every shape uses pathLength=1 so it can be "drawn" in.
 const P: React.FC<{ d: string }> = ({ d }) => <path d={d} pathLength={1} />;
@@ -89,29 +90,38 @@ export const ICON_PATHS: Record<IconId, React.ReactNode> = {
 
 export const ICON_SHOW = 1.6; // seconds on screen
 
+type IconItem = ReelProps["icons"][number];
+
+export const iconShow = (ic: IconItem) => ic.show ?? ICON_SHOW;
+
 /** One popping icon badge. `local` = seconds since the icon's start (source time). */
-export const IconBadge: React.FC<{ icon: IconId; local: number; side: "left" | "right" }> = ({ icon, local, side }) => {
-  const f = local * FPS;
-  const pop = spring({ frame: f, fps: FPS, config: { damping: 9, stiffness: 160, mass: 0.6 } });
-  const out = interpolate(local, [ICON_SHOW - 0.25, ICON_SHOW], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-  const draw = interpolate(local, [0.05, 0.6], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-  const float = Math.sin(local * 4) * 6;
-  const size = 200;
+export const IconBadge: React.FC<{ ic: IconItem; local: number; side: "left" | "right"; m: ReelProps["motion"]["icon"] }> = ({ ic, local, side, m }) => {
+  const show = iconShow(ic);
+  const pop = prog(local, m.dur, m.ease);
+  const out = interpolate(local, [show - m.outDur, show], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const draw = interpolate(local, [0.05, 0.05 + m.dur * 1.3], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const float = Math.sin(local * 4) * m.float;
+  const size = ic.size ?? 200;
+  // position: explicit x/y (0..1 of the frame, centre of the badge) or the default corner
+  const cx = ic.x !== undefined ? ic.x * 1080 : side === "left" ? 90 + size / 2 : 1080 - 90 - size / 2;
+  const cy = (ic.y !== undefined ? ic.y * 1920 : 250 + size / 2) + float;
+  const scale = lerp(m.fromScale, 1, pop) * out;
+  const rot = lerp(side === "left" ? -m.fromRot : m.fromRot, 0, pop);
   return (
     <div
       style={{
         position: "absolute",
-        top: 250 + float,
-        [side]: 90,
+        left: cx - size / 2,
+        top: cy - size / 2,
         width: size,
         height: size,
         borderRadius: "50%",
         background: "radial-gradient(circle at 35% 30%, rgba(40,52,58,0.85), rgba(8,12,14,0.85))",
-        border: "5px solid #ff3d9a",
+        border: `${Math.max(size * 0.025, 3)}px solid #ff3d9a`,
         boxShadow: "0 0 40px rgba(255,61,154,0.65), 0 18px 40px rgba(0,0,0,0.45)",
         display: "grid",
         placeItems: "center",
-        transform: `scale(${pop * out}) rotate(${(1 - pop) * (side === "left" ? -25 : 25)}deg)`,
+        transform: `scale(${Math.max(scale, 0)}) rotate(${rot}deg)`,
       }}
     >
       <svg
@@ -126,7 +136,7 @@ export const IconBadge: React.FC<{ icon: IconId; local: number; side: "left" | "
         strokeDasharray={1}
         strokeDashoffset={1 - draw}
       >
-        {ICON_PATHS[icon]}
+        {ICON_PATHS[ic.icon]}
       </svg>
     </div>
   );

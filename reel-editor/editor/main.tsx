@@ -25,8 +25,10 @@ import {
   wordsOf,
 } from "../src/schema";
 import waveform from "../src/waveform.json";
+import { GraphEditor, MotionPanel } from "./keyframes";
 
-const STORE_KEY = "reel-edit-v2";
+const STORE_KEY = "reel-edit-v3";
+const OLD_KEYS = ["reel-edit-v2"];
 const TAB_KEY = "reel-edit-tab";
 const LANE_LABEL = 52; // px, matches .track grid label column
 const MIN_GAP = 0.4;
@@ -68,6 +70,7 @@ const TABS = [
   { id: "subs", label: "الترجمة" },
   { id: "icons", label: "الأيقونات" },
   { id: "broll", label: "B-roll" },
+  { id: "motion", label: "الحركة" },
   { id: "look", label: "الستايل" },
 ] as const;
 type TabId = (typeof TABS)[number]["id"];
@@ -86,10 +89,20 @@ const trySet = (k: string, v: string) => {
 };
 
 const load = (): ReelProps => {
-  const raw = tryGet(STORE_KEY);
+  const raw = tryGet(STORE_KEY) ?? OLD_KEYS.map(tryGet).find(Boolean) ?? null;
   if (raw) {
     try {
-      return { ...defaultReel, ...JSON.parse(raw), src: defaultReel.src };
+      const saved = JSON.parse(raw);
+      // nested groups merge with the defaults so older saves pick up new settings
+      return {
+        ...defaultReel,
+        ...saved,
+        src: defaultReel.src,
+        keys: { ...defaultReel.keys, ...(saved.keys ?? {}) },
+        motion: Object.fromEntries(
+          Object.entries(defaultReel.motion).map(([k, v]) => [k, { ...v, ...(saved.motion?.[k] ?? {}) }]),
+        ) as ReelProps["motion"],
+      };
     } catch {}
   }
   return defaultReel;
@@ -560,6 +573,22 @@ const App: React.FC = () => {
               <button className="x" aria-label="حيّد" onClick={() => set("icons", p.icons.filter((_, k) => k !== i))}>
                 ×
               </button>
+              <details className="icon-more">
+                <summary>الوقت، الحجم والبلاصة</summary>
+                {(() => {
+                  const upd = (patch: Partial<ReelProps["icons"][number]>) => set("icons", p.icons.map((x, k) => (k === i ? { ...x, ...patch } : x)));
+                  const side = i % 2 === 0 ? "right" : "left";
+                  return (
+                    <>
+                      <Slider id={`icon-show-${i}`} label="مدة الظهور" value={ic.show ?? 1.6} min={0.4} max={6} step={0.1} fmt={(v) => `${v.toFixed(1)}s`} onChange={(v) => upd({ show: v })} />
+                      <Slider id={`icon-size-${i}`} label="الحجم" value={ic.size ?? 200} min={80} max={420} step={5} fmt={(v) => `${v}px`} onChange={(v) => upd({ size: v })} />
+                      <Slider id={`icon-x-${i}`} label="البلاصة X" value={ic.x ?? (side === "left" ? 0.18 : 0.82)} min={0} max={1} step={0.01} fmt={(v) => `${Math.round(v * 100)}%`} onChange={(v) => upd({ x: v })} />
+                      <Slider id={`icon-y-${i}`} label="البلاصة Y" value={ic.y ?? 0.18} min={0} max={1} step={0.01} fmt={(v) => `${Math.round(v * 100)}%`} onChange={(v) => upd({ y: v })} />
+                      <button className="tool" onClick={() => upd({ show: undefined, size: undefined, x: undefined, y: undefined })}>رجّع الأصل</button>
+                    </>
+                  );
+                })()}
+              </details>
             </li>
           ) : null,
         )}
@@ -710,6 +739,7 @@ const App: React.FC = () => {
                 {tc(B[sel])} → {tc(B[sel + 1])}
               </span>
             </h2>
+            {p.keys.zoom.length ? <p className="note">الزوم دابا كيتحكم فيه بالكيفريمات (لتحت). هاد الأزرار ما كيخدموش حتى ترجع الزوم أوتوماتيك.</p> : null}
             <div className="chips">
               {ZOOM_PRESETS.map((z) => (
                 <button key={z.v} className={"chip" + (Math.abs(segZoom - z.v) < 0.005 ? " on" : "")} onClick={() => setZoom(z.v)}>
@@ -731,6 +761,7 @@ const App: React.FC = () => {
             {tab === "subs" && subsPanel}
             {tab === "icons" && iconsPanel}
             {tab === "broll" && brollPanel}
+            {tab === "motion" && <MotionPanel p={p} setP={setP} />}
             {tab === "look" && lookPanel}
           </div>
         </aside>
@@ -756,6 +787,11 @@ const App: React.FC = () => {
         <p className="hint">
           كليكي على أي بلاصة فالتايملاين باش تمشي ليها، وختار الجزء باش تبدل الزوم ديالو. جرّ الخطوط الوردية باش تبدل بلاصة الفلاش. الخطوط البيضاء المتقطعة هي اللصقات بين اللقطات، وكيتزاد فيهم فلاش بوحدهم.
         </p>
+      </section>
+
+      <section className="edit-bar" aria-label="الكيفريمات">
+        <h2 className="section-title">الكيفريمات (Graph editor)</h2>
+        <GraphEditor p={p} setP={setP} cuts={cuts} joins={clips.slice(1).map((c) => c.outStart)} dur={dur} time={time} onSeek={seek} />
       </section>
 
       <details className="export">

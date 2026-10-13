@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { applyEase, trackAt } from "./motion";
 
 export const FPS = 24;
 export const SOURCE_SEC = 58.218667;
@@ -26,6 +27,13 @@ export type BrollKind = (typeof BROLL_KINDS)[number];
 
 export const CAPTION_STYLES = ["pop", "karaoke", "box"] as const;
 
+export const TRACK_IDS = ["zoom", "x", "y", "rot", "flash", "glow"] as const;
+export type TrackId = (typeof TRACK_IDS)[number];
+
+const easeSchema = z.union([z.tuple([z.number(), z.number(), z.number(), z.number()]), z.literal("hold")]);
+const keySchema = z.object({ t: z.number(), v: z.number(), ease: easeSchema });
+const anim = <T extends z.ZodRawShape>(extra: T) => z.object({ dur: z.number().min(0.01).max(3), ease: easeSchema }).extend(extra);
+
 // All times (`takes`, `cuts`, `captions`, `icons`, `broll`, `hook.until`) are SOURCE seconds (position in the
 // raw video), so switching a take on/off keeps everything attached to the right words.
 // `zooms` has one entry per zoom segment of the edited reel (user cuts + automatic cuts at take joins).
@@ -48,11 +56,41 @@ export const reelSchema = z.object({
   captionSize: z.number().min(40).max(110),
   captions: z.array(z.object({ start: z.number(), end: z.number(), text: z.string() })),
   iconsOn: z.boolean(),
-  icons: z.array(z.object({ t: z.number(), icon: z.enum(ICON_IDS), label: z.string() })),
+  icons: z.array(
+    z.object({
+      t: z.number(),
+      icon: z.enum(ICON_IDS),
+      label: z.string(),
+      // optional per-icon overrides
+      show: z.number().min(0.4).max(6).optional(),
+      size: z.number().min(80).max(420).optional(),
+      x: z.number().min(0).max(1).optional(),
+      y: z.number().min(0).max(1).optional(),
+    }),
+  ),
   brollOn: z.boolean(),
   broll: z.array(
     z.object({ t: z.number(), dur: z.number().min(0.5).max(6), kind: z.enum(BROLL_KINDS), src: z.string().optional() }),
   ),
+  // Keyframe tracks in OUTPUT seconds. A track with no keys runs automatically.
+  keys: z.object({
+    zoom: z.array(keySchema),
+    x: z.array(keySchema),
+    y: z.array(keySchema),
+    rot: z.array(keySchema),
+    flash: z.array(keySchema),
+    glow: z.array(keySchema),
+  }),
+  // Animation curves for every moving element
+  motion: z.object({
+    transition: anim({}), // automatic zoom change at each cut
+    caption: anim({ fromScale: z.number(), fromY: z.number(), fromRot: z.number(), fromBlur: z.number() }),
+    word: anim({ scale: z.number(), lift: z.number() }),
+    icon: anim({ fromScale: z.number(), fromRot: z.number(), outDur: z.number(), float: z.number() }),
+    broll: anim({ fromScale: z.number(), outDur: z.number() }),
+    hook: anim({ stagger: z.number(), fromY: z.number() }),
+    flash: anim({ attack: z.number() }), // automatic flash: attack = rise time, dur = fade time
+  }),
 });
 
 export type ReelProps = z.infer<typeof reelSchema>;
@@ -178,22 +216,33 @@ export const zoomAtTime = (p: ReelProps, cuts: number[], dur: number, t: number)
   let z = segZoom(p, B, i, t);
   if (i > 0 && t - B[i] < p.transition) {
     const prev = segZoom(p, B, i - 1, B[i] - 1e-6);
-    const k = ease((t - B[i]) / p.transition);
+    const k = applyEase(p.motion.transition.ease, (t - B[i]) / p.transition);
     const target = z * (1 + p.punch * Math.sin(Math.PI * k));
     z = prev + (target - prev) * k;
   }
   return z;
 };
 
-export const flashAtTime = (cuts: number[], t: number) => {
+export const flashAtTime = (cuts: number[], t: number, m: ReelProps["motion"]["flash"]) => {
   let f = 0;
+  const attack = Math.max(m.attack, 0.001);
   for (const b of cuts) {
     const d = t - b;
-    if (d >= -0.06 && d < 0) f = Math.max(f, (d + 0.06) / 0.06);
-    else if (d >= 0 && d < 0.35) f = Math.max(f, Math.exp(-d / 0.09));
+    if (d >= -attack && d < 0) f = Math.max(f, (d + attack) / attack);
+    else if (d >= 0 && d < m.dur) f = Math.max(f, 1 - applyEase(m.ease, d / m.dur));
   }
   return f;
 };
+
+/** Every keyframeable property at output time T: keyed value if the track has keys, else the automatic one. */
+export const evalTracks = (p: ReelProps, cuts: number[], dur: number, T: number): Record<TrackId, number> => ({
+  zoom: trackAt(p.keys.zoom, T) ?? zoomAtTime(p, cuts, dur, T),
+  x: trackAt(p.keys.x, T) ?? 0,
+  y: trackAt(p.keys.y, T) ?? 0,
+  rot: trackAt(p.keys.rot, T) ?? 0,
+  flash: trackAt(p.keys.flash, T) ?? flashAtTime(cuts, T, p.motion.flash) * p.flash,
+  glow: trackAt(p.keys.glow, T) ?? p.glow,
+});
 
 /* ---------- captions: per-word timing ---------- */
 
