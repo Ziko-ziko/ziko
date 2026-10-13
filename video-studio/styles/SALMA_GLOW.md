@@ -48,3 +48,9 @@ Reference implementation: `src/reel1/` (composition `Reel1`) with the default pr
 - **Injection / procedure video**: keep the procedure footage clean (no captions there).
   Captions + light animations **only while she speaks**. Add a few product-value accents
   (product name/benefit stickers, subtle highlights) on the exact words.
+  Reference implementation: `src/sub/SubEdit.tsx` (composition `SalmaGlowRRS`, approved by the client):
+  white pills with a pink left border in the free wall area (top-left), product card under the
+  captions on close-ups, small icons (heart, drop, skin layers, rising arrow), last frame held 1.2 s.
+
+## 8. Names already confirmed by the client
+- Protocol: **Spanish Glow**. Products: **Lola**, **RRS® HA Long Lasting** (skinbooster).

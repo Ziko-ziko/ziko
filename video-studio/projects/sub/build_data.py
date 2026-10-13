@@ -23,7 +23,7 @@ HOLD = 1.2  # freeze the last frame so the final sticker can be read
 CHUNKS = [
     (0.12, 2.48, "Donc chez cette patiente, on va préconiser le protocole"),
     (2.48, 3.34, "Spanish Glow,"),
-    (3.34, 5.04, "qui contient le Lola, le"),  # "Lola": unclear on the recording, to confirm
+    (3.34, 5.04, "qui contient le Lola, le"),  # confirmed by the client
     (5.04, 6.84, "RRS HA Long Lasting."),
     (6.84, 7.48, "C'est un produit que"),
     (7.48, 8.14, "j'aime beaucoup."),
