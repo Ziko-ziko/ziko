@@ -29,6 +29,8 @@ import { GraphEditor, MotionPanel } from "./keyframes";
 
 const STORE_KEY = "reel-edit-v3";
 const OLD_KEYS = ["reel-edit-v2"];
+const HISTORY_GAP = 450; // ms
+const HISTORY_MAX = 200;
 const TAB_KEY = "reel-edit-tab";
 const LANE_LABEL = 52; // px, matches .track grid label column
 const MIN_GAP = 0.4;
@@ -360,6 +362,64 @@ const App: React.FC = () => {
     trySet(STORE_KEY, JSON.stringify({ ...p, broll: p.broll.map((b) => (b.src?.startsWith("blob:") ? { ...b, src: undefined, kind: "clones" } : b)) }));
   }, [p]);
   useEffect(() => trySet(TAB_KEY, tab), [tab]);
+
+  /* undo / redo: changes less than HISTORY_GAP ms apart (a drag, a slider) count as one step */
+  const past = useRef<ReelProps[]>([]);
+  const future = useRef<ReelProps[]>([]);
+  const prevP = useRef(p);
+  const lastChange = useRef(0);
+  const fromHistory = useRef(false);
+  const [histTick, setHistTick] = useState(0);
+  useEffect(() => {
+    if (prevP.current === p) return;
+    if (fromHistory.current) {
+      fromHistory.current = false;
+    } else {
+      const now = Date.now();
+      if (now - lastChange.current > HISTORY_GAP) {
+        past.current.push(prevP.current);
+        if (past.current.length > HISTORY_MAX) past.current.shift();
+      }
+      lastChange.current = now;
+      future.current = [];
+    }
+    prevP.current = p;
+    setHistTick((n) => n + 1);
+  }, [p]);
+  const undo = useCallback(() => {
+    const prev = past.current.pop();
+    if (!prev) return;
+    future.current.push(prevP.current);
+    fromHistory.current = true;
+    lastChange.current = 0;
+    setP(prev);
+  }, []);
+  const redo = useCallback(() => {
+    const next = future.current.pop();
+    if (!next) return;
+    past.current.push(prevP.current);
+    fromHistory.current = true;
+    lastChange.current = 0;
+    setP(next);
+  }, []);
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (!(e.ctrlKey || e.metaKey) || e.altKey) return;
+      const isZ = e.code === "KeyZ" || e.key.toLowerCase() === "z";
+      const isY = e.code === "KeyY" || e.key.toLowerCase() === "y";
+      if (!isZ && !isY) return;
+      // leave text fields their own undo
+      const t = e.target as HTMLElement | null;
+      if (t && (t.tagName === "TEXTAREA" || (t.tagName === "INPUT" && !["range", "checkbox", "file"].includes((t as HTMLInputElement).type)))) return;
+      e.preventDefault();
+      if (isY || e.shiftKey) redo();
+      else undo();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [undo, redo]);
+  const canUndo = histTick >= 0 && past.current.length > 0;
+  const canRedo = histTick >= 0 && future.current.length > 0;
 
   useEffect(() => {
     const pl = playerRef.current;
@@ -697,6 +757,14 @@ const App: React.FC = () => {
           </span>
         </div>
         <div className="top-actions">
+          <button className="ghost hist" onClick={undo} disabled={!canUndo} title="رجع (Ctrl+Z)" aria-label="رجع (Ctrl+Z)">
+            <span aria-hidden="true">↶</span>
+            <kbd className="mono">Ctrl Z</kbd>
+          </button>
+          <button className="ghost hist" onClick={redo} disabled={!canRedo} title="عاود (Ctrl+Shift+Z)" aria-label="عاود (Ctrl+Shift+Z)">
+            <span aria-hidden="true">↷</span>
+            <kbd className="mono">Ctrl ⇧ Z</kbd>
+          </button>
           <button
             className="ghost"
             onClick={() => {

@@ -38,10 +38,13 @@ select, input[type=text], input:not([type]), textarea { background: var(--well);
 .brand h1 { font-size: 20px; font-weight: 700; margin: 0; text-wrap: balance; }
 .rec { width: 10px; height: 10px; border-radius: 50%; background: var(--pink); box-shadow: 0 0 12px var(--pink); }
 .meta { color: var(--muted); font-size: 12px; }
-.top-actions { display: flex; gap: 8px; }
+.top-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 .primary { background: var(--pink); border-color: var(--pink); color: #1a0710; font-weight: 600; min-width: 128px; }
 .primary:hover { border-color: #ff7cbc; background: #ff5aa9; }
 .ghost { background: transparent; }
+.hist { display: inline-flex; align-items: center; gap: 6px; }
+.hist span { font-size: 17px; line-height: 1; }
+.hist kbd { font-size: 10px; color: var(--muted); border: 1px solid var(--line); border-radius: 4px; padding: 1px 4px; }
 
 .work { display: grid; grid-template-columns: minmax(0, 380px) minmax(0, 1fr); gap: 16px; align-items: start; }
 .stage { display: flex; justify-content: center; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 12px); }
