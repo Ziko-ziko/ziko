@@ -104,3 +104,11 @@ Update: `npx skills add remotion-dev/skills --yes`
 - Ila Remotion ma l9ach browser (server bla internet), `remotion.config.ts` kaykhdem b Playwright headless shell automatiquement.
 - Blender f server bla GPU: kaykhdem b Cycles CPU. F PC dyalk b GPU, bdel `ENGINE` l `BLENDER_EEVEE` (asra3).
 - Remotion: free l individuals w companies sghar; companies kbar khasshom license (remotion.dev/license).
+
+## SALMA GLOW Studio (preview f l-navigateur)
+
+Page Artifact fiha Remotion Player + reglages (sous-titres, couleurs, polices, animations):
+https://claude.ai/artifact/6ync3F1x5rzmYZosPc5Umv
+
+Rebuild: `node artifact/build.mjs` (bundle) + media f `artifact/studio/sub/`, w publish `artifact/studio/index.html`.
+"Copier les réglages" kay3tik JSON: sifto f chat w kandir bih render 4K (`--props`).

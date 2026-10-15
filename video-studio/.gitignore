@@ -11,3 +11,5 @@ projects/*/ref/
 projects/*/analysis/*.png
 projects/*/analysis/*.csv
 public/sub/
+artifact/studio/studio.js
+artifact/studio/sub/
